@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore Big Zix pizza, bundles, sides, and desserts."
+    />
+    <title>Big Zix | Pizza &amp; Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./styles/menu.css" />
+  </head>
+  <body id="home">
+    <header class="masthead wrap">
+      <a class="brand" href="#home"
+        ><img src="./assets/logo.png" alt="Big Zix home"
+      /></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#menu">Menu</a>
+        <a href="./about-us.html">About us</a>
+        <button
+          class="cart-button"
+          id="cart-button"
+          type="button"
+          aria-haspopup="dialog"
+        >
+          Cart (0)
+        </button>
+      </nav>
+    </header>
+    <main class="wrap">
+      <section class="hero" aria-labelledby="headline">
+        <div class="hero-slide-window" aria-hidden="true">
+          <div class="hero-slide-track">
+            <img src="./assets/poster.jpg" alt="" decoding="async" /><img
+              src="./assets/menu/pexels-7813574.jpg"
+              alt=""
+              decoding="async"
+            /><img
+              src="./assets/menu/pexels-6223229.jpg"
+              alt=""
+              decoding="async"
+            /><img
+              src="./assets/menu/pexels-29908653.jpg"
+              alt=""
+              decoding="async"
+            />
+          </div>
+        </div>
+        <div class="hero-copy">
+          <p class="kicker">Big Zix Pizza</p>
+          <h1>Good night for pizza.</h1>
+          <p>
+            Pizza for sharing, bundles for the table, and something sweet after.
+          </p>
+          <a class="cta" href="#menu">Explore the menu ↓</a>
+        </div>
+        <div
+          class="hero-controls"
+          role="group"
+          aria-label="Featured products"
+          hidden
+        >
+          <button type="button" data-slide="-1" aria-label="Previous product">
+            ←
+          </button>
+          <button
+            type="button"
+            id="hero-pause"
+            aria-label="Pause photo rotation"
+          >
+            <span aria-hidden="true">Ⅱ</span>
+          </button>
+          <button type="button" data-slide="1" aria-label="Next product">
+            →
+          </button>
+          <span class="slide-number" aria-hidden="true">01 / 04</span>
+        </div>
+      </section>
+      <form class="delivery" id="delivery-form" aria-label="Delivery location">
+        <label for="delivery-address">Where should we deliver?</label>
+        <input
+          id="delivery-address"
+          type="text"
+          autocomplete="street-address"
+          placeholder="Barangay, street, or city"
+          maxlength="200"
+        />
+        <button type="submit">Save address</button>
+        <button type="button" id="locate">Use my location</button>
+        <p class="delivery-status" id="delivery-status" role="status"></p>
+      </form>
+      <section class="featured" aria-labelledby="featured-title">
+        <p class="kicker">Find your favorite</p>
+        <h2 id="featured-title">What’s on the table?</h2>
+        <div class="feature-grid">
+          <a
+            class="feature-card"
+            href="#pizza-sharing"
+            data-feature="pizza-sharing"
+          >
+            <img
+              src="./assets/menu/pexels-7813574.jpg"
+              alt="Close-up of pepperoni pizza"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>Pizza for sharing <span aria-hidden="true">↗</span></span>
+          </a>
+          <a
+            class="feature-card"
+            href="#bundle-meals"
+            data-feature="bundle-meals"
+          >
+            <img
+              src="./assets/menu/pexels-18315986.jpg"
+              alt="Spaghetti with tomato sauce"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>Bundle meals <span aria-hidden="true">↗</span></span>
+          </a>
+          <a
+            class="feature-card"
+            href="#sides-desserts"
+            data-feature="sides-desserts"
+          >
+            <img
+              src="./assets/menu/pexels-29908653.jpg"
+              alt="Platter of glazed chicken wings"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>Sides &amp; desserts <span aria-hidden="true">↗</span></span>
+          </a>
+        </div>
+        <!-- Illustrative food photos by <a href="https://www.pexels.com/photo/close-up-of-a-pepperoni-pizza-7813574/">Engin Akyurt</a>, <a href="https://www.pexels.com/photo/pasta-with-tomato-sauce-on-a-plate-18315986/">Oss Leos</a>, <a href="https://www.pexels.com/photo/savory-glazed-chicken-wings-platter-29908653/">Snappr</a> on Pexels. -->
+      </section>
+      <section class="menu" id="menu" aria-labelledby="menu-title">
+        <div class="menu-heading">
+          <div>
+            <p class="kicker">What are you craving?</p>
+            <h2 id="menu-title">The Big Zix menu</h2>
+          </div>
+          <div class="search" role="search" aria-label="Search the menu">
+            <label for="product-search">Search the menu</label>
+            <input
+              id="product-search"
+              type="search"
+              placeholder="Try pepperoni"
+            />
+          </div>
+        </div>
+        <div class="filters" role="group" aria-label="Filter menu by category">
+          <button type="button" data-category="all" aria-pressed="true">
+            All items
+          </button>
+          <button
+            type="button"
+            data-category="todays-offer"
+            aria-pressed="false"
+          >
+            Today's Offer
+          </button>
+          <button
+            type="button"
+            data-category="best-seller"
+            aria-pressed="false"
+          >
+            Best Seller
+          </button>
+          <button
+            type="button"
+            data-category="pizza-sharing"
+            aria-pressed="false"
+          >
+            Pizza for Sharing
+          </button>
+          <button
+            type="button"
+            data-category="bundle-meals"
+            aria-pressed="false"
+          >
+            Bundle Meals
+          </button>
+          <button
+            type="button"
+            data-category="sides-desserts"
+            aria-pressed="false"
+          >
+            Sides &amp; Desserts
+          </button>
+        </div>
+        <p id="empty-menu" role="status" hidden>
+          No matches. Try a different search or category.
+        </p>
+
+        <section
+          class="category"
+          data-section="todays-offer"
+          aria-labelledby="todays-offer"
+        >
+          <h3 id="todays-offer">Today's Offer</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-33722680.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Big Zix Bundle</h4>
+                <p>₱699</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-13310433.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Classic Cheese Deal</h4>
+                <p>₱299</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-7813574.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Pepperoni Duo</h4>
+                <p>₱549</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-28153641.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Family Pizza Deal</h4>
+                <p>₱899</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-5017829.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Pizza &amp; Sides Deal</h4>
+                <p>₱579</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          class="category"
+          data-section="best-seller"
+          aria-labelledby="best-seller"
+        >
+          <h3 id="best-seller">Best Seller</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-30232160.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Big Zix Classic</h4>
+                <p>₱349</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-7813574.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Pepperoni Feast</h4>
+                <p>₱399</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-27582711.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>All-In Special</h4>
+                <p>₱449</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          class="category"
+          data-section="pizza-sharing"
+          aria-labelledby="pizza-sharing"
+        >
+          <h3 id="pizza-sharing">Pizza for Sharing</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-7813574.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Pepperoni Party Pizza</h4>
+                <p>₱599</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-32611521.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Hawaiian Feast</h4>
+                <p>₱549</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-27582711.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>All-In Overload</h4>
+                <p>₱649</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          class="category"
+          data-section="bundle-meals"
+          aria-labelledby="bundle-meals"
+        >
+          <h3 id="bundle-meals">Bundle Meals</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-6223229.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Pizza &amp; Pasta Bundle</h4>
+                <p>₱699</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-31142295.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Family Meal</h4>
+                <p>₱999</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-33722680.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Friends Combo</h4>
+                <p>₱849</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          class="category"
+          data-section="sides-desserts"
+          aria-labelledby="sides-desserts"
+        >
+          <h3 id="sides-desserts">Sides &amp; Desserts</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-37043987.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Garlic Bread</h4>
+                <p>₱99</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-29908653.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Chicken Wings</h4>
+                <p>₱199</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-6390686.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Chocolate Brownie</h4>
+                <p>₱89</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-inner wrap">
+        <strong>Big Zix</strong><a href="./about-us.html">Meet Big Zix →</a>
+      </div>
+    </footer>
+
+    <dialog
+      class="order-dialog"
+      id="order-dialog"
+      aria-labelledby="order-title"
+    >
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Close">×</button>
+      </form>
+      <p class="kicker" id="order-kicker">Big Zix</p>
+      <h2 id="order-title"></h2>
+      <p id="order-message"></p>
+      <ul class="cart-list" id="cart-list" hidden></ul>
+      <form id="checkout-form" hidden>
+        <label for="order-method">How will you get your order?</label>
+        <select id="order-method" name="method">
+          <option value="pickup">Pickup</option>
+          <option value="delivery">Delivery</option>
+        </select>
+        <div id="order-address-field" hidden>
+          <label for="order-address">Delivery address</label>
+          <input
+            id="order-address"
+            name="address"
+            autocomplete="street-address"
+            maxlength="200"
+          />
+        </div>
+        <fieldset class="checkout-extras">
+          <legend>Want to add anything?</legend>
+          <p>
+            Pick a drink, side, dip, or dessert. You can also skip straight to
+            saving your order draft.
+          </p>
+          <ul id="checkout-extras-list"></ul>
+        </fieldset>
+        <p class="checkout-note">
+          This saves a draft on this device. It won’t send an order to Big Zix
+          or take payment.
+        </p>
+      </form>
+      <div class="dialog-actions" id="order-actions"></div>
+      <p id="order-status" role="status" hidden></p>
+    </dialog>
+    <script src="./scripts/menu.js" defer></script>
+  </body>
+</html>

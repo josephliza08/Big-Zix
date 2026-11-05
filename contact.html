@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Get in touch with the Big Zix team about the menu, group orders, or feedback."
+    />
+    <title>Contact | Big Zix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./styles/menu.css" />
+    <link rel="stylesheet" href="./styles/contact.css" />
+    <script src="./scripts/contact.js" defer></script>
+  </head>
+  <body>
+    <header class="masthead wrap">
+      <a class="brand" href="./index.html"
+        ><img src="./assets/logo.png" alt="Big Zix home"
+      /></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="./index.html#menu">Menu</a>
+        <a href="./about-us.html">About us</a>
+        <a href="./contact.html" aria-current="page">Contact</a>
+      </nav>
+    </header>
+    <main class="contact-main wrap">
+      <header class="contact-banner">
+        <p class="kicker">Contact Big Zix</p>
+        <h1>Let’s talk pizza.</h1>
+        <p>
+          Got a menu question, planning food for a group, or want to tell us how
+          we did?
+        </p>
+      </header>
+      <div class="contact-grid">
+        <section aria-labelledby="contact-form-title">
+          <h2 id="contact-form-title">Write us a note</h2>
+          <p>
+            Use the form to draft a message you can copy and share. Messages
+            stay in your browser until you send them yourself.
+          </p>
+          <form id="contact-form" method="post">
+            <label for="contact-topic">What’s it about?</label>
+            <select id="contact-topic" name="topic">
+              <option>Menu question</option>
+              <option>Group order</option>
+              <option>Feedback</option>
+              <option>Something else</option>
+            </select>
+            <label for="contact-message">Your message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="6"
+              maxlength="2000"
+              required
+            ></textarea>
+            <button class="cart-button" type="submit">Copy message</button>
+            <p id="contact-status" role="status"></p>
+            <div id="contact-fallback" hidden>
+              <label for="contact-copy">Copy this draft manually</label>
+              <textarea id="contact-copy" rows="5" readonly></textarea>
+            </div>
+          </form>
+        </section>
+        <aside aria-labelledby="quick-links-title">
+          <img src="./assets/poster.jpg" alt="A table of pizzas from above" />
+          <div class="contact-aside-copy">
+            <h2 id="quick-links-title">Looking for something?</h2>
+            <ul>
+              <li>
+                <a href="./index.html#menu">Browse the menu and prices</a>
+              </li>
+              <li><a href="./about-us.html">Get to know Big Zix</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-inner wrap">
+        <strong>Big Zix</strong><a href="./index.html">Back to Home</a>
+      </div>
+    </footer>
+  </body>
+</html>

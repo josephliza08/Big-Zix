@@ -4,8 +4,11 @@ Extract this folder, then open index.html in a browser.
 
 index.html        Home, menu, delivery location, and cart dialog
 about-us.html     About Big Zix and the interactive 3D pizza box
+contact.html      Contact message composer
 LOGIN/            Login and registration pages
-assets/           Images used by the four pages
+assets/           Images used by the site pages
+styles/           CSS for the menu, About Us, and account pages
+scripts/          JavaScript for the menu, About Us, and account pages
 styles/           CSS for the menu, About Us, and account pages
 scripts/          JavaScript for the menu, About Us, and account pages
 styles/           CSS for the menu, About Us, and account pages
@@ -13,6 +16,7 @@ scripts/          JavaScript for the menu, About Us, and account pages
 
 The menu photos are included in assets/menu. Internet access loads the web fonts and 3D viewer.
 The menu uses sample peso prices. Guest checkout saves a draft in the browser. No order is sent or payment taken.
+
 
 
 

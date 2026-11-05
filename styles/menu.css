@@ -1196,3 +1196,19 @@ body:has(#cart-summary:not([hidden])) .site-footer {
     gap: 24px;
   }
 }
+
+.footer-brand .footer-logo {
+  position: relative;
+  display: block;
+  width: 70px;
+  aspect-ratio: 761 / 559;
+  overflow: hidden;
+}
+.footer-logo img {
+  position: absolute;
+  width: 208.54%;
+  max-width: none;
+  height: auto;
+  left: -54.53%;
+  top: -150.8%;
+}

@@ -21,6 +21,8 @@ function filterMenu() {
     matches += sectionMatches;
   }
   empty.hidden = matches > 0;
+  document.querySelector("#menu-count").textContent =
+    matches + " items to choose from";
 }
 
 for (const button of buttons) {
@@ -131,20 +133,21 @@ const method = document.querySelector("#order-method");
 const addressField = document.querySelector("#order-address-field");
 const checkoutAddress = document.querySelector("#order-address");
 const cartKey = "big-zix.guest-cart";
-const draftKey = "big-zix.last-order-draft";
+const orderKey = "big-zix.last-order";
+let lastOrder = null;
 const cart = new Map();
 const products = new Map(
   [...document.querySelectorAll(".items li")].map((item) => {
     const name = item.querySelector("h4").textContent;
     const price = Number(
-      item.querySelector("p").textContent.replace(/[^0-9]/g, ""),
+      item.querySelector("p").textContent.replace(/[^0-9.]/g, ""),
     );
     return [name, { name, price }];
   }),
 );
 const orderExtras = [
   { name: "Cola", price: 49, image: "./assets/menu/pexels-8879626.jpg" },
-  { name: "Iced Tea", price: 59, image: "./assets/menu/pexels-18263138.jpg" },
+  { name: "Iced Tea", price: 49, image: "./assets/menu/pexels-18263138.jpg" },
   { name: "Lemonade", price: 69, image: "./assets/menu/pexels-33107436.jpg" },
   {
     name: "Garlic Bread",
@@ -182,7 +185,8 @@ const extrasList = document.querySelector("#checkout-extras-list");
 const pesos = new Intl.NumberFormat("en-PH", {
   style: "currency",
   currency: "PHP",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
 });
 
 try {
@@ -205,6 +209,19 @@ function syncCart() {
   const items = [...cart.values()];
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   cartButton.textContent = "Cart (" + count + ")";
+  document.querySelector("#cart-summary").hidden = count === 0;
+  document.querySelector("#cart-total").textContent =
+    count +
+    (count === 1 ? " item" : " items") +
+    " · " +
+    pesos.format(subtotal());
+  for (const button of document.querySelectorAll(".product-add")) {
+    const quantity = cart.get(button.dataset.product)?.quantity || 0;
+    button.textContent = quantity
+      ? "Add another · " + quantity + " in cart"
+      : "+ Add to cart";
+    button.disabled = quantity >= 99;
+  }
   try {
     localStorage.setItem(
       cartKey,
@@ -247,34 +264,51 @@ function action(label, handler, secondary = false) {
   orderActions.append(button);
 }
 
-function renderCart(editable) {
+function renderCart(editable, reviewing = false) {
   const items = [...cart.values()];
   cartList.hidden = items.length === 0;
   for (const item of items) {
     const row = document.createElement("li");
-    const label = document.createElement("span");
-    label.textContent =
-      item.quantity +
-      " × " +
-      item.name +
-      " · " +
-      pesos.format(item.quantity * item.price);
+    row.className = "order-line";
+    const label = document.createElement("div");
+    label.className = "order-line-info";
+    const name = document.createElement("strong");
+    name.textContent = item.name;
+    const unit = document.createElement("span");
+    unit.textContent = pesos.format(item.price) + " each";
+    label.append(name);
+    label.append(unit);
+    const total = document.createElement("strong");
+    total.className = "order-line-total";
+    total.textContent = pesos.format(item.quantity * item.price);
     row.append(label);
+    row.append(total);
     if (editable) {
       const group = document.createElement("div");
       group.className = "cart-quantity";
+      group.setAttribute("role", "group");
+      group.setAttribute("aria-label", "Quantity for " + item.name);
       for (const [change, text, verb] of [
         [-1, "−", "Remove one"],
         [1, "+", "Add one"],
+        [-item.quantity, "Remove", "Remove item"],
       ]) {
         const button = document.createElement("button");
         button.type = "button";
         button.textContent = text;
+        button.className = text === "Remove" ? "remove-item" : "quantity-step";
         button.setAttribute("aria-label", verb + " " + item.name);
         button.disabled = change > 0 && item.quantity >= 99;
         button.addEventListener("click", () => {
           changeQuantity(item, change);
-          showCart();
+          if (reviewing && cart.size) {
+            cartList.replaceChildren();
+            renderCart(true, true);
+            orderMessage.textContent = "Subtotal · " + pesos.format(subtotal());
+            updateCheckoutExtras();
+          } else {
+            showCart();
+          }
           const next = [...cartList.querySelectorAll("button")].find(
             (control) =>
               control.getAttribute("aria-label") ===
@@ -282,7 +316,17 @@ function renderCart(editable) {
           );
           (next || orderActions.firstElementChild)?.focus();
         });
-        group.append(button);
+        if (text === "Remove") {
+          row.append(button);
+        } else {
+          group.append(button);
+          if (change === -1) {
+            const count = document.createElement("span");
+            count.className = "quantity-value";
+            count.textContent = item.quantity;
+            group.append(count);
+          }
+        }
       }
       row.append(group);
     }
@@ -307,40 +351,46 @@ function showCart() {
   );
   renderCart(true);
   if (cart.size) action("Review order", showCheckout);
-  const draft = readOrderDraft();
-  if (draft) action("View last draft", () => showOrderDraft(draft), true);
+  const order = readLastOrder();
+  if (order) action("View last order", () => showConfirmation(order), true);
   action("Back to menu", () => orderDialog.close(), true);
   orderActions.firstElementChild.focus();
 }
 
-function readOrderDraft() {
+function readLastOrder() {
+  if (lastOrder) return lastOrder;
   try {
-    const draft = JSON.parse(localStorage.getItem(draftKey));
-    return Array.isArray(draft?.items) && Number.isFinite(draft.subtotal)
-      ? draft
+    const order = JSON.parse(localStorage.getItem(orderKey));
+    return Array.isArray(order?.items) && Number.isFinite(order.total)
+      ? order
       : null;
   } catch {
     return null;
   }
 }
 
-function showOrderDraft(draft) {
-  const destination =
-    draft.method === "delivery" ? "Delivery to " + draft.address : "Pickup";
+function showConfirmation(order) {
   setDialog(
-    "Saved on this device",
-    "Order draft",
-    destination + " · " + pesos.format(draft.subtotal),
+    "Big Zix · Order receipt",
+    "Order recorded",
+    order.reference + " · " + pesos.format(order.total),
   );
   cartList.hidden = false;
-  for (const item of draft.items) {
+  for (const item of order.items) {
     const row = document.createElement("li");
-    row.textContent = item.quantity + " × " + item.name;
+    row.textContent =
+      item.quantity +
+      " × " +
+      item.name +
+      " · " +
+      pesos.format(item.price * item.quantity);
     cartList.append(row);
   }
-  orderStatus.textContent = "This draft has not been sent to Big Zix.";
+  orderStatus.textContent =
+    (order.method === "delivery" ? "Delivery to " + order.address : "Pickup") +
+    ". Recorded on this browser. Payment has not been collected.";
   orderStatus.hidden = false;
-  action("Back to cart", showCart, true);
+  action("Back to menu", () => orderDialog.close());
   orderActions.firstElementChild.focus();
 }
 
@@ -357,12 +407,12 @@ function showCheckout() {
     "Subtotal · " + pesos.format(subtotal()),
   );
   orderDialog.scrollTop = 0;
-  renderCart(false);
+  renderCart(true, true);
   checkout.hidden = false;
   checkoutAddress.value ||= address.value.trim();
   updateMethod();
   updateCheckoutExtras();
-  action("Save order draft", () => checkout.requestSubmit());
+  action("Place order", () => checkout.requestSubmit());
   action("Back to cart", showCart, true);
   method.focus();
 }
@@ -404,7 +454,7 @@ for (const extra of orderExtras) {
     changeQuantity(extra, 1);
     orderMessage.textContent = "Subtotal · " + pesos.format(subtotal());
     cartList.replaceChildren();
-    renderCart(false);
+    renderCart(true, true);
     updateCheckoutExtras();
     orderStatus.textContent = extra.name + " added to your order.";
     orderStatus.hidden = false;
@@ -425,68 +475,53 @@ checkout.addEventListener("submit", (event) => {
     checkoutAddress.focus();
     return;
   }
-  const draft = {
+  const order = {
+    reference: "BZ-" + Date.now().toString(36).toUpperCase(),
     items: [...cart.values()],
-    subtotal: subtotal(),
+    total: subtotal(),
     method: method.value,
     address: deliveryAddress,
     createdAt: new Date().toISOString(),
   };
   try {
-    localStorage.setItem(draftKey, JSON.stringify(draft));
+    localStorage.setItem(orderKey, JSON.stringify(order));
   } catch {
-    orderStatus.textContent =
-      "This browser couldn’t save the draft. Your items are still in the cart.";
-    orderStatus.hidden = false;
-    return;
+    // The confirmation remains available for this visit without storage.
   }
+  lastOrder = order;
   cart.clear();
   syncCart();
-  showOrderDraft(draft);
-  orderTitle.textContent = "Order draft saved";
+  showConfirmation(order);
 });
 
-function openOrder(product) {
+function openOrder() {
   if (!orderDialog.open) orderDialog.showModal();
-  if (!product) {
-    showCart();
-    return;
-  }
-  setDialog("Add to your order", product.name, pesos.format(product.price));
-  action("Add to cart", () => {
-    if ((cart.get(product.name)?.quantity || 0) >= 99) {
-      orderStatus.textContent = "This item has reached the 99-item cart limit.";
-      orderStatus.hidden = false;
-      return;
-    }
-    changeQuantity(product, 1);
-    setDialog("Added to cart", product.name, "Your item is in the cart.");
-    action("View cart", showCart);
-    action("Keep browsing", () => orderDialog.close(), true);
-    orderActions.firstElementChild.focus();
-  });
-  action("Keep browsing", () => orderDialog.close(), true);
-  orderActions.firstElementChild.focus();
+  showCart();
 }
 
 document.querySelectorAll(".items li").forEach((item) => {
-  const heading = item.querySelector("h4");
-  const product = products.get(heading.textContent);
+  const product = products.get(item.querySelector("h4").textContent);
+  item.querySelector("p").textContent = pesos.format(product.price);
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "product-open";
-  button.textContent = product.name;
-  button.setAttribute("aria-haspopup", "dialog");
+  button.className = "product-add";
+  button.dataset.product = product.name;
+  button.setAttribute("aria-label", "Add " + product.name + " to cart");
   button.addEventListener("click", () => {
-    const select = new Event("menuproductselect", {
-      bubbles: true,
-      cancelable: true,
-    });
-    if (item.dispatchEvent(select)) openOrder(product);
+    changeQuantity(product, 1);
+    document.querySelector("#menu-feedback").textContent =
+      product.name + " added to your cart.";
   });
-  heading.replaceChildren(button);
+  item.querySelector(".item-details").append(button);
 });
-cartButton.addEventListener("click", () => openOrder());
+cartButton.addEventListener("click", openOrder);
+document.querySelector("#view-cart").addEventListener("click", openOrder);
+document.querySelector("#reset-menu").addEventListener("click", () => {
+  search.value = "";
+  buttons[0].click();
+  search.focus();
+});
+filterMenu();
 syncCart();
 orderDialog.addEventListener("click", (event) => {
   if (event.target === orderDialog) {
@@ -633,9 +668,11 @@ showProduct(0, false);
 setPaused(paused);
 controls.hidden = false;
 
+// Product carousels are independent of the sliding hero banner.
 for (const category of sections) {
   const shelf = category.querySelector(".items");
-  const items = [...shelf.querySelectorAll("li")];
+  const items = [...shelf.children];
+  shelf.classList.add("menu-shelf");
   const controls = document.createElement("div");
   controls.className = "menu-shelf-controls";
   controls.setAttribute("role", "group");
@@ -643,103 +680,164 @@ for (const category of sections) {
     "aria-label",
     category.querySelector("h3").textContent + " carousel",
   );
-  controls.innerHTML =
-    '<button type="button" data-step="-1" aria-label="Previous item">←</button>' +
-    '<span aria-live="polite"></span><button type="button" data-step="1" aria-label="Next item">→</button>';
-  shelf.after(controls);
-  shelf.classList.add("menu-shelf");
+  const previous = document.createElement("button");
+  previous.type = "button";
+  previous.textContent = "←";
+  previous.setAttribute("aria-label", "Previous product");
+  const counter = document.createElement("span");
+  counter.setAttribute("aria-live", "polite");
+  const next = document.createElement("button");
+  next.type = "button";
+  next.textContent = "→";
+  next.setAttribute("aria-label", "Next product");
+  controls.append(previous, counter, next);
   const picker = document.createElement("div");
   picker.className = "menu-product-picker";
   picker.setAttribute("role", "group");
-  picker.setAttribute(
-    "aria-label",
-    category.querySelector("h3").textContent + " products",
-  );
-  controls.after(picker);
-  const productButtons = items.map((item) => {
+  picker.setAttribute("aria-label", "Choose a product");
+  let active = items[0];
+  let visible = items;
+  const choices = items.map((item) => {
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = item.querySelector("h4").textContent;
     button.addEventListener("click", () => {
-      if (active === item) {
-        item.querySelector(".product-open").click();
-      } else {
-        active = item;
-        render(true);
-      }
+      active = item;
+      render();
     });
     picker.append(button);
+    // Clicking a side card brings it forward. Its Add button still adds directly.
+    item.addEventListener("click", (event) => {
+      if (event.target.closest("button")) return;
+      active = item;
+      render();
+    });
     return button;
   });
-  let active = items[0];
-  let visible = items;
-  let reveal;
-
-  function render(animate) {
+  shelf.after(controls);
+  controls.after(picker);
+  function render() {
     visible = items.filter((item) => !item.hidden);
     if (!visible.includes(active)) active = visible[0];
-    const current = visible.indexOf(active);
-    controls.hidden = visible.length < 2;
-    productButtons.forEach((button, index) => {
-      button.hidden = items[index].hidden;
-      button.setAttribute("aria-pressed", String(items[index] === active));
-    });
-    controls.querySelector("span").textContent = visible.length
-      ? current + 1 + " / " + visible.length
+    const index = visible.indexOf(active);
+    counter.textContent = visible.length
+      ? index + 1 + " / " + visible.length
       : "";
-    visible.forEach((item, index) => {
-      let distance = index - current;
+    previous.disabled = next.disabled = visible.length < 2;
+    choices.forEach((button, i) => {
+      button.hidden = items[i].hidden;
+      button.setAttribute("aria-pressed", String(items[i] === active));
+    });
+    visible.forEach((item, i) => {
+      let distance = i - index;
       if (distance > visible.length / 2) distance -= visible.length;
       if (distance < -visible.length / 2) distance += visible.length;
-      item.style.setProperty("--item-x", distance * 67 + "%");
-      item.style.setProperty("--item-y", Math.sign(distance) * -57 + "deg");
-      item.style.setProperty("--item-scale", distance ? ".78" : "1");
+      item.style.setProperty("--slide-x", distance * 82 + "%");
+      item.style.setProperty(
+        "--slide-angle",
+        -Math.sign(distance) * 38 + "deg",
+      );
+      item.style.setProperty("--slide-scale", distance ? ".84" : "1");
       item.style.zIndex = String(5 - Math.abs(distance));
       item.toggleAttribute("data-active", distance === 0);
       item.toggleAttribute("data-far", Math.abs(distance) > 1);
-      const button = item.querySelector(".product-open");
-      button.setAttribute(
-        "aria-label",
-        (distance ? "Bring forward " : "View ") + button.textContent,
-      );
-      button.setAttribute("aria-haspopup", distance ? "false" : "dialog");
+      item.inert = Math.abs(distance) > 1;
     });
-    reveal?.cancel();
-    if (animate && active && !motion.matches && active.animate) {
-      reveal = active.querySelector(".item-details").animate(
-        [
-          { clipPath: "inset(100% 0 0)", transform: "translateY(8px)" },
-          { clipPath: "inset(0)", transform: "translateY(0)" },
-        ],
-        { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)" },
-      );
-    }
   }
-
   function step(direction) {
     if (visible.length < 2) return;
     active =
       visible[
         (visible.indexOf(active) + direction + visible.length) % visible.length
       ];
-    render(true);
+    render();
   }
-  controls.querySelectorAll("[data-step]").forEach((button) => {
-    button.addEventListener("click", () => step(Number(button.dataset.step)));
-  });
-  category.addEventListener("menufilter", () => render(false));
-  shelf.addEventListener("menuproductselect", (event) => {
-    if (event.target === active) return;
-    event.preventDefault();
-    active = event.target;
-    render(true);
-  });
-  category.addEventListener("keydown", (event) => {
+  previous.addEventListener("click", () => step(-1));
+  next.addEventListener("click", () => step(1));
+  category.addEventListener("menufilter", render);
+  shelf.addEventListener("keydown", (event) => {
     if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
     event.preventDefault();
     step(event.key === "ArrowLeft" ? -1 : 1);
-    if (shelf.contains(document.activeElement))
-      active?.querySelector(".product-open").focus({ preventScroll: true });
+    active.querySelector(".product-add").focus({ preventScroll: true });
   });
-  render(false);
+  let drag = null;
+  let suppressClickUntil = 0;
+  const hint = document.createElement("p");
+  hint.className = "carousel-hint";
+  hint.textContent = "Drag or swipe to explore";
+  shelf.before(hint);
+  shelf.addEventListener("dragstart", (event) => event.preventDefault());
+  shelf.addEventListener(
+    "click",
+    (event) => {
+      if (performance.now() < suppressClickUntil) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    },
+    true,
+  );
+  shelf.addEventListener("pointerdown", (event) => {
+    if (
+      !event.isPrimary ||
+      event.button !== 0 ||
+      visible.length < 2 ||
+      event.target.closest("button")
+    )
+      return;
+    drag = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      delta: 0,
+      moving: false,
+    };
+  });
+  shelf.addEventListener("pointermove", (event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const x = event.clientX - drag.x;
+    const y = event.clientY - drag.y;
+    if (!drag.moving) {
+      if (Math.abs(y) > 10 && Math.abs(y) > Math.abs(x)) {
+        drag = null;
+        return;
+      }
+      if (Math.abs(x) < 8) return;
+      drag.moving = true;
+      shelf.setPointerCapture(event.pointerId);
+      shelf.classList.add("is-dragging");
+    }
+    drag.delta = x;
+    if (!motion.matches) {
+      const offset = Math.max(-150, Math.min(150, x * 0.65));
+      shelf.style.setProperty("--drag-x", offset + "px");
+      shelf.style.setProperty(
+        "--drag-tilt",
+        Math.max(-5, Math.min(5, x / 35)) + "deg",
+      );
+    }
+  });
+  function finishDrag(event, cancelled = false) {
+    if (!drag || event.pointerId !== drag.id) return;
+    const ended = drag;
+    drag = null;
+    shelf.classList.remove("is-dragging");
+    shelf.style.removeProperty("--drag-x");
+    shelf.style.removeProperty("--drag-tilt");
+    if (shelf.hasPointerCapture(ended.id))
+      shelf.releasePointerCapture(ended.id);
+    if (ended.moving) suppressClickUntil = performance.now() + 350;
+    if (!cancelled && ended.moving && Math.abs(ended.delta) > 45)
+      step(ended.delta < 0 ? 1 : -1);
+  }
+  shelf.addEventListener("pointerup", (event) => finishDrag(event));
+  shelf.addEventListener("pointercancel", (event) => finishDrag(event, true));
+  shelf.addEventListener("lostpointercapture", (event) =>
+    finishDrag(event, true),
+  );
+  shelf.addEventListener("pointerleave", () => {
+    if (drag && !drag.moving) drag = null;
+  });
+  render();
 }

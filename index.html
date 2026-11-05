@@ -197,7 +197,22 @@
           >
             Sides &amp; Desserts
           </button>
+          <button
+            type="button"
+            data-category="drinks-extras"
+            aria-pressed="false"
+          >
+            Drinks &amp; extras
+          </button>
         </div>
+        <div class="menu-tools">
+          <p id="menu-count" role="status"></p>
+          <button id="reset-menu" type="button">Reset filters</button>
+        </div>
+        <p class="menu-hint">
+          Choose your favorites, then review your cart. Drinks and extras are
+          below, too.
+        </p>
         <p id="empty-menu" role="status" hidden>
           No matches. Try a different search or category.
         </p>
@@ -472,11 +487,109 @@
             </li>
           </ul>
         </section>
+        <section
+          class="category"
+          data-section="drinks-extras"
+          aria-labelledby="drinks-extras"
+        >
+          <h3 id="drinks-extras">Drinks &amp; extras</h3>
+          <ul class="items">
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-8879626.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Cola</h4>
+                <p>₱49</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-18263138.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Iced Tea</h4>
+                <p>₱49</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-33107436.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Lemonade</h4>
+                <p>₱69</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-5860680.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>French Fries</h4>
+                <p>₱89</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-9304931.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Garlic Dip</h4>
+                <p>₱25</p>
+              </div>
+            </li>
+            <li>
+              <img
+                class="item-photo"
+                src="./assets/menu/pexels-11733646.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="item-details">
+                <h4>Chili Flakes</h4>
+                <p>₱15</p>
+              </div>
+            </li>
+          </ul>
+        </section>
       </section>
     </main>
-    <footer>
+    <footer class="site-footer" aria-label="Big Zix footer">
       <div class="footer-inner wrap">
-        <strong>Big Zix</strong><a href="./about-us.html">Meet Big Zix →</a>
+        <div class="footer-brand">
+          <a href="#home" aria-label="Big Zix home"
+            >BIG ZIX<span aria-hidden="true">.</span></a
+          >
+          <p>Great pizza. Good company.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#menu">Menu</a>
+          <a href="./about-us.html">About us</a>
+          <a href="./contact.html">Contact</a>
+        </nav>
+        <a class="footer-top-link" href="#home">Back to top ↑</a>
       </div>
     </footer>
 
@@ -507,22 +620,40 @@
             maxlength="200"
           />
         </div>
-        <fieldset class="checkout-extras">
-          <legend>Want to add anything?</legend>
-          <p>
-            Pick a drink, side, dip, or dessert. You can also skip straight to
-            saving your order draft.
-          </p>
-          <ul id="checkout-extras-list"></ul>
-        </fieldset>
+        <details class="optional-extras">
+          <summary>Add drinks, sides or dips (optional)</summary>
+          <fieldset class="checkout-extras">
+            <legend>Want to add anything?</legend>
+            <p>
+              Pick a drink, side, dip, or dessert. You can also skip straight to
+              confirming your order.
+            </p>
+            <ul id="checkout-extras-list"></ul>
+          </fieldset>
+        </details>
         <p class="checkout-note">
-          This saves a draft on this device. It won’t send an order to Big Zix
-          or take payment.
+          Your order is recorded on this browser. Online payment and sending
+          orders to the restaurant are not connected.
         </p>
       </form>
       <div class="dialog-actions" id="order-actions"></div>
       <p id="order-status" role="status" hidden></p>
     </dialog>
+    <aside
+      id="cart-summary"
+      class="cart-summary"
+      aria-label="Order summary"
+      hidden
+    >
+      <div>
+        <strong>Your next pizza night</strong>
+        <p id="cart-total"></p>
+      </div>
+      <button type="button" id="view-cart" aria-haspopup="dialog">
+        View cart →
+      </button>
+    </aside>
+    <p id="menu-feedback" class="menu-feedback" role="status"></p>
     <script src="./scripts/menu.js" defer></script>
   </body>
 </html>

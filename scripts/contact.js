@@ -29,3 +29,36 @@ contactForm.addEventListener("submit", async (event) => {
     copyField.select();
   }
 });
+
+const socialStatus = document.querySelector("#social-status");
+for (const button of document.querySelectorAll("[data-social]")) {
+  button.addEventListener("click", async () => {
+    const handle = button.firstElementChild.textContent;
+    try {
+      await navigator.clipboard.writeText(handle);
+      socialStatus.textContent =
+        "Copied " + handle + " for " + button.dataset.social + ".";
+    } catch {
+      socialStatus.textContent = "Copy this handle manually: " + handle;
+    }
+  });
+}
+
+if (
+  matchMedia(
+    "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+  ).matches
+) {
+  const hero = document.querySelector(".contact-hero");
+  hero.addEventListener("pointermove", (event) => {
+    const bounds = hero.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 14;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10;
+    hero.style.setProperty("--photo-x", x + "px");
+    hero.style.setProperty("--photo-y", y + "px");
+  });
+  hero.addEventListener("pointerleave", () => {
+    hero.style.removeProperty("--photo-x");
+    hero.style.removeProperty("--photo-y");
+  });
+}

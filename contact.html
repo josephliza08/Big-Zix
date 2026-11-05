@@ -31,120 +31,117 @@
     </header>
     <main class="contact-main wrap">
       <section class="contact-hero" aria-labelledby="contact-title">
+        <img
+          class="contact-photo"
+          src="./assets/poster.jpg"
+          alt=""
+          fetchpriority="high"
+        />
         <div class="contact-intro">
           <p class="kicker">Contact Big Zix</p>
-          <h1 id="contact-title">Pizza talk.</h1>
+          <h1 id="contact-title">What’s<br />cooking?</h1>
           <p>
-            Planning a group order? Got a menu question? Tell us what’s on your
-            mind.
+            Tell us about the pizza you want, the party you’re planning, or the
+            slice you’re still thinking about.
           </p>
           <a href="#contact-note"
-            >Write a message <span aria-hidden="true">↓</span></a
+            >Write a note <span aria-hidden="true">↓</span></a
           >
         </div>
-        <img
-          src="./assets/menu/pexels-7813574.jpg"
-          alt="Close-up of a pepperoni pizza"
-        />
-      </section>
-      <section class="contact-socials" aria-labelledby="social-title">
-        <div class="social-heading">
-          <h2 id="social-title">Find us on social</h2>
-          <p>Our accounts are coming soon.</p>
+        <div class="pizza-stamp" aria-hidden="true">
+          <span>BIG ZIX</span><strong>HOT<br />LINE</strong><span>★ ★ ★</span>
         </div>
-        <ul class="social-list">
-          <li>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle
-                cx="17.5"
-                cy="6.5"
-                r=".75"
-                fill="currentColor"
-                stroke="none"
-              />
-            </svg>
-            <div>
-              <h3>Instagram</h3>
-              <p>@bigzixpizza</p>
-            </div>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M14 21v-8h2.7l.4-3H14V8.1c0-.9.3-1.5 1.6-1.5H17V4a19 19 0 0 0-2.3-.1C12.4 3.9 11 5.3 11 8v2H8.5v3H11v8z"
-              />
-            </svg>
-            <div>
-              <h3>Facebook</h3>
-              <p>@bigzixpizza</p>
-            </div>
-          </li>
-          <li>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.9"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path
-                d="M14 4v11.5a4.5 4.5 0 1 1-4.5-4.5m4.5-7c.5 3 2.1 4.5 5 5"
-              />
-            </svg>
-            <div>
-              <h3>TikTok</h3>
-              <p>@bigzixpizza</p>
-            </div>
-          </li>
-        </ul>
       </section>
-      <section
-        class="contact-note"
-        id="contact-note"
-        aria-labelledby="contact-form-title"
-      >
-        <header>
-          <p class="kicker">Menu questions &amp; feedback</p>
-          <h2 id="contact-form-title">Write a note</h2>
-          <p>
-            Draft a message here, then copy it to send through your preferred
-            channel once our accounts are live.
+      <div class="contact-grid">
+        <section class="contact-socials" aria-labelledby="social-title">
+          <p class="kicker section-label">01 / Social</p>
+          <h2 id="social-title">Find us in your feed.</h2>
+          <p class="contact-description">
+            These accounts are coming soon. Tap a handle to copy it.
           </p>
-        </header>
-        <form id="contact-form" method="post">
-          <label for="contact-topic">What’s it about?</label>
-          <select id="contact-topic" name="topic">
-            <option>Menu question</option>
-            <option>Group order</option>
-            <option>Feedback</option>
-            <option>Something else</option>
-          </select>
-          <label for="contact-message">Your message</label>
-          <textarea
-            id="contact-message"
-            name="message"
-            rows="5"
-            maxlength="2000"
-            required
-          ></textarea>
-          <button class="cart-button" type="submit">Copy message</button>
-          <p id="contact-status" role="status"></p>
-          <div id="contact-fallback" hidden>
-            <label for="contact-copy">Copy this draft manually</label>
-            <textarea id="contact-copy" rows="5" readonly></textarea>
-          </div>
-        </form>
-      </section>
+          <ul class="social-list">
+            <li>
+              <span class="social-monogram" aria-hidden="true">IG</span>
+              <div class="social-detail">
+                <h3>Instagram</h3>
+                <p>Pizza photos and menu updates</p>
+              </div>
+              <button
+                type="button"
+                data-social="Instagram"
+                aria-label="Copy proposed Instagram handle"
+              >
+                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
+              </button>
+            </li>
+            <li>
+              <span class="social-monogram" aria-hidden="true">FB</span>
+              <div class="social-detail">
+                <h3>Facebook</h3>
+                <p>Announcements and group order inquiries</p>
+              </div>
+              <button
+                type="button"
+                data-social="Facebook"
+                aria-label="Copy proposed Facebook handle"
+              >
+                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
+              </button>
+            </li>
+            <li>
+              <span class="social-monogram" aria-hidden="true">TT</span>
+              <div class="social-detail">
+                <h3>TikTok</h3>
+                <p>A look behind the counter</p>
+              </div>
+              <button
+                type="button"
+                data-social="TikTok"
+                aria-label="Copy proposed TikTok handle"
+              >
+                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
+              </button>
+            </li>
+          </ul>
+          <p id="social-status" class="social-status" role="status"></p>
+        </section>
+        <section
+          class="contact-note"
+          id="contact-note"
+          aria-labelledby="contact-form-title"
+        >
+          <header>
+            <p class="kicker section-label">02 / Message draft</p>
+            <h2 id="contact-form-title">Leave us a note.</h2>
+            <p>
+              Draft a message and copy it to share once our accounts go live.
+            </p>
+          </header>
+          <form id="contact-form" method="post">
+            <label for="contact-topic">What’s it about?</label>
+            <select id="contact-topic" name="topic">
+              <option>Menu question</option>
+              <option>Group order</option>
+              <option>Feedback</option>
+              <option>Something else</option>
+            </select>
+            <label for="contact-message">Your message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="5"
+              maxlength="2000"
+              required
+            ></textarea>
+            <button class="cart-button" type="submit">Copy message</button>
+            <p id="contact-status" role="status"></p>
+            <div id="contact-fallback" hidden>
+              <label for="contact-copy">Copy this draft manually</label>
+              <textarea id="contact-copy" rows="5" readonly></textarea>
+            </div>
+          </form>
+        </section>
+      </div>
     </main>
     <footer>
       <div class="footer-inner wrap">

@@ -3,111 +3,181 @@
   font-weight: 700;
 }
 .contact-main {
-  padding-bottom: clamp(40px, 7vw, 80px);
+  padding-bottom: clamp(40px, 7vw, 86px);
 }
 .contact-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: clamp(290px, 34vw, 420px);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: end;
+  min-height: clamp(410px, 43vw, 540px);
   overflow: hidden;
   border-radius: 18px;
-  background: var(--red);
-  color: var(--paper);
+  background: #271411;
+  color: #fff8ed;
+}
+.contact-hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, #20100df7, #20100dbc 44%, #20100d14 83%);
+  content: "";
+}
+.contact-photo {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% center;
+  transform: scale(1.06) translate(var(--photo-x, 0px), var(--photo-y, 0px));
 }
 .contact-intro {
-  align-self: center;
-  padding: clamp(25px, 5vw, 65px);
+  padding: clamp(24px, 5vw, 64px);
 }
-.contact-intro .kicker,
-.contact-intro a {
+.contact-intro .kicker {
   color: var(--gold);
 }
 .contact-intro h1 {
-  margin-block: 10px 14px;
-  font-size: clamp(4rem, 8vw, 8rem);
+  margin: 9px 0 20px;
+  font-size: clamp(5rem, 12vw, 10rem);
+  line-height: 0.76;
+  letter-spacing: -0.027em;
 }
 .contact-intro p:not(.kicker) {
-  max-width: 29ch;
+  max-width: 35ch;
   line-height: 1.55;
 }
 .contact-intro a {
-  display: inline-block;
-  margin-top: 9px;
-  text-underline-offset: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
 }
-.contact-hero img {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  object-fit: cover;
+.contact-intro a:hover {
+  background: #ffd279;
 }
-.contact-socials {
-  padding-block: clamp(33px, 6vw, 68px);
+.pizza-stamp {
+  position: absolute;
+  top: 14%;
+  right: 10%;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  width: clamp(100px, 16vw, 188px);
+  aspect-ratio: 1;
+  border: 2px dashed #71201a;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #71201a;
+  outline: 5px solid var(--gold);
+  text-align: center;
+  transform: rotate(12deg);
 }
-.social-heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: 8px 24px;
-  margin-bottom: 15px;
+.pizza-stamp span {
+  font-size: clamp(0.56rem, 1.2vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
-.social-heading h2,
-.contact-note h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+.pizza-stamp strong {
+  font:
+    800 clamp(1.5rem, 4vw, 3.65rem) / 0.78 "Barlow Condensed",
+    sans-serif;
 }
-.social-heading p {
-  margin: 0;
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(24px, 6vw, 80px);
+  align-items: start;
+  margin-top: clamp(36px, 7vw, 85px);
+}
+.section-label {
+  color: var(--red);
+}
+.contact-grid h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(2.8rem, 5.4vw, 5rem);
+  line-height: 0.85;
+}
+.contact-description,
+.contact-note header p:last-child {
+  max-width: 39ch;
+  line-height: 1.55;
 }
 .social-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 22px 0 0;
+  border-top: 1px solid var(--line);
 }
 .social-list li {
-  display: flex;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-  padding: clamp(14px, 2.5vw, 26px);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #fffdf9;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
 }
-.social-list svg {
-  flex: 0 0 40px;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
+.social-monogram {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
   border-radius: 50%;
+  background: #f5dfbd;
   color: var(--red);
-  background: #fae5bd;
+  font-weight: 700;
+  font-size: 0.82rem;
 }
-.social-list h3 {
+.social-detail h3 {
   font-size: 1rem;
 }
-.social-list p {
-  margin: 4px 0 0;
-  color: #735446;
+.social-detail p {
+  margin: 3px 0 0;
+  color: #685044;
+  font-size: 0.85rem;
+}
+.social-list button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--red);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.social-list button:hover {
+  border-color: var(--line);
+  background: #fffdf9;
+}
+.social-status {
+  min-height: 1.5em;
+  margin: 8px 0 0;
+  font-size: 0.85rem;
   overflow-wrap: anywhere;
 }
 .contact-note {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-  gap: clamp(16px, 5vw, 65px);
-  padding: clamp(18px, 5vw, 50px);
-  border-top: 3px solid var(--red);
-  background: #fff0d9;
+  position: relative;
+  padding: clamp(20px, 4vw, 40px);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--red);
+  background: #fffdf8;
+  box-shadow: 8px 9px 0 #edd8b9;
   scroll-margin-top: 16px;
 }
-.contact-note header p:last-child {
-  max-width: 36ch;
-  line-height: 1.6;
-}
-.contact-note .kicker {
-  color: var(--red);
+.contact-note form {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed #b69879;
 }
 #contact-form label {
   display: block;
@@ -122,7 +192,7 @@
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fffdf9;
+  background: white;
   color: var(--ink);
   font: inherit;
 }
@@ -132,13 +202,37 @@
 #contact-status:empty {
   display: none;
 }
-@media (max-width: 720px) {
-  .contact-hero,
-  .contact-note,
-  .social-list {
+@media (prefers-reduced-motion: no-preference) {
+  .contact-photo {
+    transition: transform 0.28s ease-out;
+  }
+  .pizza-stamp {
+    animation: stamp-in 0.65s cubic-bezier(0.2, 0.75, 0.25, 1.2) both;
+  }
+  @keyframes stamp-in {
+    from {
+      transform: translateY(-20px) rotate(-13deg) scale(0.78);
+    }
+  }
+}
+@media (max-width: 770px) {
+  .contact-grid {
     grid-template-columns: 1fr;
   }
-  .contact-hero img {
-    height: clamp(145px, 42vw, 240px);
+  .contact-hero::after {
+    background: linear-gradient(0deg, #20100df7 20%, #20100d7a 85%);
+  }
+  .pizza-stamp {
+    top: 8%;
+    right: 9%;
+  }
+}
+@media (max-width: 380px) {
+  .social-list li {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+  .social-list button {
+    grid-column: 2;
+    justify-self: start;
   }
 }

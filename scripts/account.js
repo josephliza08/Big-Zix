@@ -24,8 +24,8 @@ form.addEventListener("submit", (event) => {
     return;
   }
   status.textContent = confirmation
-    ? "Sign-up is not available yet. No account was created. Please check back soon."
-    : "Log-in is not available yet. Online ordering is coming soon.";
+    ? "We couldn’t create your account."
+    : "We couldn’t log you in.";
   for (const input of form.querySelectorAll(
     'input[type="password"], .password-box input',
   ))
@@ -34,5 +34,5 @@ form.addEventListener("submit", (event) => {
 document.querySelector("[data-reset]")?.addEventListener("click", (event) => {
   event.preventDefault();
   status.textContent =
-    "Password reset will be available once the account service is connected.";
+    "Password reset is unavailable.";
 });

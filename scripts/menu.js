@@ -1,6 +1,8 @@
 // Ordering is preserved for future backend integration; visitors stay logged out.
 const orderingEnabled = false;
-function requireAccount() { window.BigZixAccount.open("login"); }
+function requireAccount() {
+  window.BigZixAccount.open("login");
+}
 
 const search = document.querySelector("#product-search");
 const buttons = [...document.querySelectorAll("[data-category]")];
@@ -194,7 +196,9 @@ const pesos = new Intl.NumberFormat("en-PH", {
 });
 
 try {
-  const saved = orderingEnabled ? JSON.parse(localStorage.getItem(cartKey)) : null;
+  const saved = orderingEnabled
+    ? JSON.parse(localStorage.getItem(cartKey))
+    : null;
   for (const [name, quantity] of Object.entries(saved || {})) {
     if (
       products.has(name) &&
@@ -215,7 +219,10 @@ function syncCart() {
     document.querySelector("#cart-summary").hidden = true;
     for (const button of document.querySelectorAll(".product-add")) {
       button.textContent = "+ Order";
-      button.setAttribute("aria-label", "Log in to order " + button.dataset.product);
+      button.setAttribute(
+        "aria-label",
+        "Log in to order " + button.dataset.product,
+      );
       button.setAttribute("aria-haspopup", "dialog");
     }
     return;

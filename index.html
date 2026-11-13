@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
     <link rel="stylesheet" href="./styles/menu.css" />
-    <link rel="stylesheet" href="./styles/auth-popup.css" />
+    <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-3" />
   </head>
   <body id="home">
     <header class="masthead wrap">
@@ -25,11 +25,7 @@
       <nav class="nav" aria-label="Main navigation">
         <a href="#menu">Menu</a>
         <a href="./about-us.html">About us</a>
-        <button
-          class="cart-button"
-          id="cart-button"
-          type="button"
-        >
+        <button class="cart-button" id="cart-button" type="button">
           Log in
         </button>
         <a href="./LOGIN/register.html">Sign up</a>
@@ -579,7 +575,9 @@
     <footer class="site-footer" aria-label="Big Zix footer">
       <div class="footer-inner wrap">
         <div class="footer-brand">
-          <a class="footer-logo" href="./index.html" aria-label="Big Zix home"><img src="./assets/logo.png" alt="Big Zix" /></a>
+          <a class="footer-logo" href="./index.html" aria-label="Big Zix home"
+            ><img src="./assets/logo.png" alt="Big Zix"
+          /></a>
           <p>Great pizza. Good company.</p>
         </div>
         <nav class="footer-nav" aria-label="Footer navigation">
@@ -652,18 +650,32 @@
       </button>
     </aside>
     <p id="menu-feedback" class="menu-feedback" role="status"></p>
-    <dialog id="account-dialog" class="account-dialog" aria-labelledby="account-title" aria-describedby="account-message">
-      <button type="button" id="close-account" aria-label="Close login reminder">×</button>
+    <dialog
+      id="account-dialog"
+      class="account-dialog"
+      aria-labelledby="account-title"
+      aria-describedby="account-message"
+    >
+      <button
+        type="button"
+        id="close-account"
+        aria-label="Close login reminder"
+      >
+        ×
+      </button>
       <p class="account-kicker">Before you order</p>
       <h2 id="account-title">Please log in first.</h2>
-      <p id="account-message">You need to log in before ordering. New to Big Zix? Create an account to get started.</p>
+      <p id="account-message">
+        You need to log in before ordering. New to Big Zix? Create an account to
+        get started.
+      </p>
       <div class="account-actions">
         <a class="account-login" href="./LOGIN/LOGIN.html">Log in</a>
         <a class="account-signup" href="./LOGIN/register.html">Sign up</a>
       </div>
       <button type="button" id="continue-browsing">Keep browsing</button>
     </dialog>
-    <script src="./scripts/auth-popup.js" defer></script>
-    <script src="./scripts/menu.js" defer></script>
+    <script src="./scripts/auth-popup.js?v=20261113-3" defer></script>
+    <script src="./scripts/menu.js?v=20261113-3" defer></script>
   </body>
 </html>

@@ -1,19 +1,27 @@
 (() => {
-  const dialog = document.querySelector('#account-dialog');
+  const dialog = document.querySelector("#account-dialog");
   let opener;
   function open() {
     opener = document.activeElement;
     if (!dialog.open) dialog.showModal();
-    dialog.querySelector('.account-login').focus();
+    dialog.querySelector(".account-login").focus();
   }
-  function close() { dialog.close(); }
+  function close() {
+    dialog.close();
+  }
   window.BigZixAccount = Object.freeze({ open });
-  document.querySelector('#close-account').addEventListener('click', close);
-  document.querySelector('#continue-browsing').addEventListener('click', close);
-  dialog.addEventListener('click', event => {
+  document.querySelector("#close-account").addEventListener("click", close);
+  document.querySelector("#continue-browsing").addEventListener("click", close);
+  dialog.addEventListener("click", (event) => {
     if (event.target !== dialog) return;
     const r = dialog.getBoundingClientRect();
-    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) close();
+    if (
+      event.clientX < r.left ||
+      event.clientX > r.right ||
+      event.clientY < r.top ||
+      event.clientY > r.bottom
+    )
+      close();
   });
-  dialog.addEventListener('close', () => opener?.focus());
+  dialog.addEventListener("close", () => opener?.focus());
 })();

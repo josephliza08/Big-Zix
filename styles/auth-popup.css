@@ -1,12 +1,79 @@
-.account-dialog { width: min(460px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 36px 28px 24px; border: 1px solid #d2b48c; border-radius: 20px; background: #fff8ee; color: #4a3328; text-align: center; box-shadow: 0 24px 90px #24120d55; }
-.account-dialog::backdrop { background: #24120da6; }
-#close-account { position: absolute; top: 8px; right: 12px; border: 0; background: transparent; color: #4a3328; font-size: 28px; cursor: pointer; }
-.account-kicker { margin: 0 0 10px; color: #b23a3a; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-.account-dialog h2 { margin: 0 0 12px; font-size: 32px; }
-#account-message { margin: 0; line-height: 1.6; font-size: 15px; }
-.account-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 16px; }
-.account-actions a { flex: 1; padding: 12px 18px; border: 1px solid #b23a3a; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; }
-.account-login, .account-login:visited { background: #b23a3a; color: white; }
-.account-signup, .account-signup:visited { color: #b23a3a; }
-#continue-browsing { border: 0; background: transparent; color: #4a3328; padding: 8px; font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
-.account-dialog :focus-visible { outline: 2px solid #8d201c; outline-offset: 4px; }
+.account-dialog {
+  width: min(460px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 36px 28px 24px;
+  border: 1px solid #d2b48c;
+  border-radius: 20px;
+  background: #fff8ee;
+  color: #4a3328;
+  text-align: center;
+  box-shadow: 0 24px 90px #24120d55;
+}
+.account-dialog::backdrop {
+  background: #24120da6;
+}
+#close-account {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  color: #4a3328;
+  font-size: 28px;
+  cursor: pointer;
+}
+.account-kicker {
+  margin: 0 0 10px;
+  color: #b23a3a;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.account-dialog h2 {
+  margin: 0 0 12px;
+  font-size: 32px;
+}
+#account-message {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 16px;
+}
+.account-actions a {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid #b23a3a;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.account-login,
+.account-login:visited {
+  background: #b23a3a;
+  color: white;
+}
+.account-signup,
+.account-signup:visited {
+  color: #b23a3a;
+}
+#continue-browsing {
+  border: 0;
+  background: transparent;
+  color: #4a3328;
+  padding: 8px;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.account-dialog :focus-visible {
+  outline: 2px solid #8d201c;
+  outline-offset: 4px;
+}

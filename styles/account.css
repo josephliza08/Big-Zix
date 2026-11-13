@@ -143,5 +143,12 @@ hr {
   }
 }
 
-.account-notice { font-size: 14px; line-height: 1.5; text-align: center; }
-.account-status { font-size: 14px; line-height: 1.5; }
+.account-notice {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+.account-status {
+  font-size: 14px;
+  line-height: 1.5;
+}

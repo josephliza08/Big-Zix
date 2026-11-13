@@ -26,7 +26,10 @@ form.addEventListener("submit", (event) => {
   status.textContent = confirmation
     ? "Sign-up is not available yet. No account was created. Please check back soon."
     : "Log-in is not available yet. Online ordering is coming soon.";
-  for (const input of form.querySelectorAll('input[type="password"], .password-box input')) input.value = "";
+  for (const input of form.querySelectorAll(
+    'input[type="password"], .password-box input',
+  ))
+    input.value = "";
 });
 document.querySelector("[data-reset]")?.addEventListener("click", (event) => {
   event.preventDefault();

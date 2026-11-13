@@ -109,3 +109,101 @@
   width: 100%;
   min-height: 9rem;
 }
+
+/* Meal planner cards and compact, accessible controls. */
+#pizza-planner {
+  align-items: start;
+  scroll-margin-top: 24px;
+}
+
+#pizza-planner > div {
+  min-width: 0;
+}
+
+#planner-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#planner-form :is(input, select) {
+  width: 100%;
+  min-height: 46px;
+  background: #fffaf2;
+  color: var(--ink);
+}
+
+#planner-form button,
+#planner-copy {
+  min-height: 46px;
+  font-weight: 700;
+}
+
+#planner-items {
+  padding: 0;
+  list-style: none;
+}
+
+#planner-items li {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+  padding: 16px;
+  background: #fffaf2;
+  border: 1px solid #dfcbb1;
+  border-radius: 12px;
+}
+
+#planner-items img {
+  flex: 0 0 76px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+#planner-items li > div {
+  flex: 1;
+  min-width: 0;
+}
+
+#planner-items strong {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+#planner-items label {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+#planner-items select {
+  width: 100%;
+  min-width: 0;
+  background: white;
+  color: var(--ink);
+}
+
+#pizza-planner :focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  #pizza-planner {
+    padding: 20px 16px;
+  }
+
+  #planner-items li {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  #planner-items img {
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

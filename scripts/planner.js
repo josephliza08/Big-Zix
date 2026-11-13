@@ -18,6 +18,7 @@
     );
     return {
       name,
+      image: item.querySelector("img")?.getAttribute("src"),
       cents: Math.round(price * 100),
       category: item.closest("[data-section]").dataset.section,
     };
@@ -70,6 +71,7 @@
 
   function render(people) {
     items.replaceChildren();
+    copy.textContent = "Copy meal plan";
     share.hidden = true;
     copy.hidden = !current;
     if (!current) {
@@ -87,7 +89,17 @@
       const line = `${quantity} × ${item.name} · ${money(item.cents * quantity)}`;
       lines.push(line);
       const row = document.createElement("li");
-      row.textContent = line + " ";
+      const photo = document.createElement("img");
+      photo.src = item.image;
+      photo.alt = "";
+      photo.loading = "lazy";
+      photo.width = 76;
+      photo.height = 76;
+      const details = document.createElement("div");
+      const description = document.createElement("strong");
+      description.textContent = line;
+      details.append(description);
+      row.append(photo, details);
       const alternatives = [
         ...new Set(plans.map((plan) => plan.lines[index].item).filter(Boolean)),
       ];
@@ -104,13 +116,31 @@
         }
         select.addEventListener("change", () => {
           const name = select.value;
-          current = plans.find((plan) => plan.lines[index].item?.name === name);
+          const candidates = plans.filter(
+            (plan) => plan.lines[index].item?.name === name,
+          );
+          const changes = (plan) =>
+            plan.lines.reduce(
+              (count, entry, slot) =>
+                count +
+                Number(
+                  slot !== index && entry.item !== current.lines[slot].item,
+                ),
+              0,
+            );
+          candidates.sort(
+            (a, b) =>
+              changes(a) - changes(b) ||
+              b.variety - a.variety ||
+              a.total - b.total,
+          );
+          current = candidates[0];
           render(people);
           items.querySelector(`[data-slot="${index}"]`)?.focus();
         });
         select.dataset.slot = index;
         label.append(select);
-        row.append(label);
+        details.append(label);
       }
       items.append(row);
     });
@@ -138,7 +168,7 @@
   copy.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(share.value);
-      status.textContent = "Meal plan copied.";
+      copy.textContent = "Copied!";
     } catch {
       share.hidden = false;
       share.focus();

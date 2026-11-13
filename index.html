@@ -29,11 +29,10 @@
           class="cart-button"
           id="cart-button"
           type="button"
-          aria-haspopup="dialog"
         >
           Log in
         </button>
-        <a href="./LOGIN/register.html" data-account="signup" aria-haspopup="dialog">Sign up</a>
+        <a href="./LOGIN/register.html">Sign up</a>
         <a href="./contact.html">Contact</a>
       </nav>
     </header>
@@ -653,9 +652,16 @@
       </button>
     </aside>
     <p id="menu-feedback" class="menu-feedback" role="status"></p>
-    <dialog id="account-dialog" class="account-dialog" aria-label="Big Zix account">
-      <div class="account-toolbar"><span>Welcome to Big Zix</span><button type="button" id="close-account" aria-label="Close account popup">Close ×</button></div>
-      <iframe id="account-frame" title="Log in or sign up to Big Zix"></iframe>
+    <dialog id="account-dialog" class="account-dialog" aria-labelledby="account-title" aria-describedby="account-message">
+      <button type="button" id="close-account" aria-label="Close login reminder">×</button>
+      <p class="account-kicker">Before you order</p>
+      <h2 id="account-title">Please log in first.</h2>
+      <p id="account-message">You need to log in before ordering. New to Big Zix? Create an account to get started.</p>
+      <div class="account-actions">
+        <a class="account-login" href="./LOGIN/LOGIN.html">Log in</a>
+        <a class="account-signup" href="./LOGIN/register.html">Sign up</a>
+      </div>
+      <button type="button" id="continue-browsing">Keep browsing</button>
     </dialog>
     <script src="./scripts/auth-popup.js" defer></script>
     <script src="./scripts/menu.js" defer></script>

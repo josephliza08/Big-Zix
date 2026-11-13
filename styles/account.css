@@ -145,9 +145,3 @@ hr {
 
 .account-notice { font-size: 14px; line-height: 1.5; text-align: center; }
 .account-status { font-size: 14px; line-height: 1.5; }
-body.in-popup { padding: 28px; min-height: 100vh; gap: 20px; }
-body.in-popup .card { border-width: 3px; }
-@media (max-width: 700px) {
-  body.in-popup { padding: 24px 16px; }
-  body.in-popup .welcome { display: none; }
-}

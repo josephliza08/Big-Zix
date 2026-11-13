@@ -33,17 +33,3 @@ document.querySelector("[data-reset]")?.addEventListener("click", (event) => {
   status.textContent =
     "Password reset will be available once the account service is connected.";
 });
-
-// Reuse the original account pages inside the menu popup and on their own.
-if (window.parent !== window) {
-  document.body.classList.add("in-popup");
-  for (const link of document.querySelectorAll('a[href="../index.html"]')) {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.parent.postMessage({ type: "big-zix:close-account" }, window.location.origin === "null" ? "*" : window.location.origin);
-    });
-  }
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") window.parent.postMessage({ type: "big-zix:close-account" }, window.location.origin === "null" ? "*" : window.location.origin);
-  });
-}

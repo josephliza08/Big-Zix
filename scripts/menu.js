@@ -534,7 +534,13 @@ document.querySelectorAll(".items li").forEach((item) => {
   });
   item.querySelector(".item-details").append(button);
 });
-cartButton.addEventListener("click", openOrder);
+cartButton.addEventListener("click", () => {
+  if (!orderingEnabled) {
+    window.location.href = "./LOGIN/LOGIN.html";
+    return;
+  }
+  openOrder();
+});
 document.querySelector("#view-cart").addEventListener("click", openOrder);
 document.querySelector("#reset-menu").addEventListener("click", () => {
   search.value = "";

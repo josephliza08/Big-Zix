@@ -14,8 +14,9 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
-    <link rel="stylesheet" href="./styles/menu.css" />
-    <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-3" />
+    <link rel="stylesheet" href="./styles/menu.css?v=20261113-4" />
+    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261113-4" />
+    <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-4" />
   </head>
   <body id="home">
     <header class="masthead wrap">
@@ -36,7 +37,12 @@
       <section class="hero" aria-labelledby="headline">
         <div class="hero-slide-window" aria-hidden="true">
           <div class="hero-slide-track">
-            <img src="./assets/poster.jpg" alt="" decoding="async" /><img
+            <img
+              src="./assets/poster.jpg"
+              alt=""
+              decoding="async"
+              fetchpriority="high"
+            /><img
               src="./assets/menu/pexels-7813574.jpg"
               alt=""
               decoding="async"
@@ -571,6 +577,41 @@
           </ul>
         </section>
       </section>
+      <section class="menu-help" aria-labelledby="menu-help-title">
+        <div class="menu-help-intro">
+          <p class="kicker">Your next pizza night</p>
+          <h2 id="menu-help-title">Good food. Easy choices.</h2>
+          <p>
+            Explore a best seller, find a bundle for the table, or add something
+            sweet. Take your time finding your favorites.
+          </p>
+          <a class="help-menu-link" href="#menu">Back to the menu ↑</a>
+        </div>
+        <div class="menu-faq">
+          <details>
+            <summary>Where should I start?</summary>
+            <p>
+              Try Best Seller for pizza favorites, Bundle Meals for a shared
+              spread, or Sides &amp; Desserts for a little extra. Use the search
+              box to find a dish by name.
+            </p>
+          </details>
+          <details>
+            <summary>Do I need an account to browse?</summary>
+            <p>
+              No account is needed to explore the menu and prices. When you
+              select Order, you can visit our log-in or sign-up page.
+            </p>
+          </details>
+          <details>
+            <summary>Can I place an order online yet?</summary>
+            <p>
+              Online accounts and ordering are coming soon. For questions about
+              the menu, <a href="./contact.html">visit our contact page</a>.
+            </p>
+          </details>
+        </div>
+      </section>
     </main>
     <footer class="site-footer" aria-label="Big Zix footer">
       <div class="footer-inner wrap">
@@ -675,7 +716,7 @@
       </div>
       <button type="button" id="continue-browsing">Keep browsing</button>
     </dialog>
-    <script src="./scripts/auth-popup.js?v=20261113-3" defer></script>
-    <script src="./scripts/menu.js?v=20261113-3" defer></script>
+    <script src="./scripts/auth-popup.js?v=20261113-4" defer></script>
+    <script src="./scripts/menu.js?v=20261113-4" defer></script>
   </body>
 </html>

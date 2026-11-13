@@ -1,0 +1,77 @@
+/* Customer guidance: compact, semantic content beneath the menu. */
+.menu-help {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 5vw, 64px);
+  margin-block: 48px 24px;
+  padding: clamp(24px, 4vw, 44px);
+  background: #f0dfc9;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.menu-help h2 {
+  margin: 8px 0 12px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.1;
+}
+.menu-help p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.menu-help a {
+  color: var(--red);
+  text-underline-offset: 4px;
+}
+.help-menu-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 700;
+}
+.menu-faq details {
+  border-bottom: 1px solid #cdb89d;
+}
+.menu-faq summary {
+  padding: 18px 0;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+}
+.menu-faq details p {
+  margin: 0 0 18px;
+}
+.menu-faq summary::marker {
+  color: var(--red);
+}
+
+/* Animate only transforms and opacity; reduced-motion users get no motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .product-add,
+  .cart-button,
+  .account-actions a {
+    transition: transform 140ms ease-out;
+  }
+  .product-add:active,
+  .cart-button:active,
+  .account-actions a:active {
+    transform: scale(0.97);
+  }
+  .account-dialog[open] {
+    animation: account-appear 180ms ease-out;
+  }
+  @keyframes account-appear {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (max-width: 700px) {
+  .menu-help {
+    grid-template-columns: 1fr;
+  }
+}

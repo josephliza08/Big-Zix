@@ -604,6 +604,7 @@ const counter = hero.querySelector(".slide-number");
 let current = 0;
 let paused = motion.matches;
 let hovered = false;
+let heroVisible = true;
 let reveals = [];
 
 function showProduct(index, animate = true) {
@@ -629,11 +630,11 @@ function showProduct(index, animate = true) {
     reveals = [title, caption].map((line, i) =>
       line.animate(
         [
-          { clipPath: "inset(100% 0 0)", transform: "translateY(12px)" },
-          { clipPath: "inset(0)", transform: "translateY(0)" },
+          { opacity: 0, transform: "translateY(10px)" },
+          { opacity: 1, transform: "translateY(0)" },
         ],
         {
-          duration: 420,
+          duration: 280,
           delay: i * 55,
           fill: "backwards",
           easing: "cubic-bezier(.2,.8,.2,1)",
@@ -688,8 +689,16 @@ link.addEventListener("click", () => {
     )
     ?.click();
 });
+// Pause work when the banner is outside the viewport.
+if ("IntersectionObserver" in window) {
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    heroVisible = entry.isIntersecting;
+  });
+  heroObserver.observe(hero);
+}
 setInterval(() => {
   if (
+    heroVisible &&
     !paused &&
     !hovered &&
     !document.hidden &&
@@ -795,6 +804,20 @@ for (const category of sections) {
     active.querySelector(".product-add").focus({ preventScroll: true });
   });
   let drag = null;
+  let dragFrame = 0;
+
+  // Coalesce pointer updates into one visual update per animation frame.
+  function paintDrag() {
+    dragFrame = 0;
+    if (!drag || motion.matches) return;
+    const distance = drag.delta;
+    const offset = Math.max(-150, Math.min(150, distance * 0.65));
+    shelf.style.setProperty("--drag-x", offset + "px");
+    shelf.style.setProperty(
+      "--drag-tilt",
+      Math.max(-5, Math.min(5, distance / 35)) + "deg",
+    );
+  }
   let suppressClickUntil = 0;
   const hint = document.createElement("p");
   hint.className = "carousel-hint";
@@ -842,17 +865,14 @@ for (const category of sections) {
       shelf.classList.add("is-dragging");
     }
     drag.delta = x;
-    if (!motion.matches) {
-      const offset = Math.max(-150, Math.min(150, x * 0.65));
-      shelf.style.setProperty("--drag-x", offset + "px");
-      shelf.style.setProperty(
-        "--drag-tilt",
-        Math.max(-5, Math.min(5, x / 35)) + "deg",
-      );
+    if (!motion.matches && !dragFrame) {
+      dragFrame = requestAnimationFrame(paintDrag);
     }
   });
   function finishDrag(event, cancelled = false) {
     if (!drag || event.pointerId !== drag.id) return;
+    cancelAnimationFrame(dragFrame);
+    dragFrame = 0;
     const ended = drag;
     drag = null;
     shelf.classList.remove("is-dragging");

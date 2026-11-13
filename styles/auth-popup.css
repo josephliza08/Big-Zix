@@ -1,0 +1,40 @@
+.account-dialog {
+  width: min(980px, calc(100% - 32px));
+  max-width: none;
+  height: min(790px, calc(100dvh - 32px));
+  max-height: none;
+  padding: 0;
+  border: 1px solid #d2b48c;
+  border-radius: 20px;
+  background: #fff8ee;
+  color: #4a3328;
+  overflow: hidden;
+  box-shadow: 0 24px 90px #24120d55;
+}
+.account-dialog::backdrop { background: #24120da6; }
+.account-toolbar {
+  height: 58px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #e8d5b0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.account-toolbar button {
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  background: #b23a3a;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+.account-dialog iframe { display: block; width: 100%; height: calc(100% - 58px); border: 0; }
+@media (max-width: 600px) {
+  .account-dialog { width: calc(100% - 16px); height: calc(100dvh - 16px); border-radius: 12px; }
+  .account-toolbar { padding-inline: 14px; }
+}

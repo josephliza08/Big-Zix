@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
     <link rel="stylesheet" href="./styles/menu.css" />
+    <link rel="stylesheet" href="./styles/auth-popup.css" />
   </head>
   <body id="home">
     <header class="masthead wrap">
@@ -30,8 +31,9 @@
           type="button"
           aria-haspopup="dialog"
         >
-          Cart (0)
+          Log in
         </button>
+        <a href="./LOGIN/register.html" data-account="signup" aria-haspopup="dialog">Sign up</a>
         <a href="./contact.html">Contact</a>
       </nav>
     </header>
@@ -210,8 +212,7 @@
           <button id="reset-menu" type="button">Reset filters</button>
         </div>
         <p class="menu-hint">
-          Choose your favorites, then review your cart. Drinks and extras are
-          below, too.
+          Find your favorites. Log in or create an account before ordering.
         </p>
         <p id="empty-menu" role="status" hidden>
           No matches. Try a different search or category.
@@ -652,6 +653,11 @@
       </button>
     </aside>
     <p id="menu-feedback" class="menu-feedback" role="status"></p>
+    <dialog id="account-dialog" class="account-dialog" aria-label="Big Zix account">
+      <div class="account-toolbar"><span>Welcome to Big Zix</span><button type="button" id="close-account" aria-label="Close account popup">Close ×</button></div>
+      <iframe id="account-frame" title="Log in or sign up to Big Zix"></iframe>
+    </dialog>
+    <script src="./scripts/auth-popup.js" defer></script>
     <script src="./scripts/menu.js" defer></script>
   </body>
 </html>

@@ -1,3 +1,7 @@
+// Ordering is preserved for future backend integration; visitors stay logged out.
+const orderingEnabled = false;
+function requireAccount() { window.BigZixAccount.open("login"); }
+
 const search = document.querySelector("#product-search");
 const buttons = [...document.querySelectorAll("[data-category]")];
 const sections = [...document.querySelectorAll("[data-section]")];
@@ -190,7 +194,7 @@ const pesos = new Intl.NumberFormat("en-PH", {
 });
 
 try {
-  const saved = JSON.parse(localStorage.getItem(cartKey));
+  const saved = orderingEnabled ? JSON.parse(localStorage.getItem(cartKey)) : null;
   for (const [name, quantity] of Object.entries(saved || {})) {
     if (
       products.has(name) &&
@@ -206,6 +210,16 @@ try {
 }
 
 function syncCart() {
+  if (!orderingEnabled) {
+    cartButton.textContent = "Log in";
+    document.querySelector("#cart-summary").hidden = true;
+    for (const button of document.querySelectorAll(".product-add")) {
+      button.textContent = "+ Order";
+      button.setAttribute("aria-label", "Log in to order " + button.dataset.product);
+      button.setAttribute("aria-haspopup", "dialog");
+    }
+    return;
+  }
   const items = [...cart.values()];
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   cartButton.textContent = "Cart (" + count + ")";
@@ -235,6 +249,7 @@ function syncCart() {
 }
 
 function changeQuantity(product, change) {
+  if (!orderingEnabled) return requireAccount();
   const quantity = Math.min(
     99,
     (cart.get(product.name)?.quantity || 0) + change,
@@ -342,6 +357,7 @@ function subtotal() {
 }
 
 function showCart() {
+  if (!orderingEnabled) return requireAccount();
   setDialog(
     "Your order",
     "Your cart",
@@ -401,6 +417,7 @@ function updateMethod() {
 }
 
 function showCheckout() {
+  if (!orderingEnabled) return requireAccount();
   setDialog(
     "Guest checkout",
     "Review your order",
@@ -466,6 +483,7 @@ for (const extra of orderExtras) {
 method.addEventListener("change", updateMethod);
 checkout.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (!orderingEnabled) return requireAccount();
   if (!cart.size) return;
   const deliveryAddress =
     method.value === "delivery" ? checkoutAddress.value.trim() : "";
@@ -495,6 +513,7 @@ checkout.addEventListener("submit", (event) => {
 });
 
 function openOrder() {
+  if (!orderingEnabled) return requireAccount();
   if (!orderDialog.open) orderDialog.showModal();
   showCart();
 }
@@ -508,6 +527,7 @@ document.querySelectorAll(".items li").forEach((item) => {
   button.dataset.product = product.name;
   button.setAttribute("aria-label", "Add " + product.name + " to cart");
   button.addEventListener("click", () => {
+    if (!orderingEnabled) return requireAccount();
     changeQuantity(product, 1);
     document.querySelector("#menu-feedback").textContent =
       product.name + " added to your cart.";

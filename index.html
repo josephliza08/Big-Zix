@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
     <link rel="stylesheet" href="./styles/menu.css?v=20261113-4" />
-    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261113-4" />
+    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261113-5" />
     <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-4" />
   </head>
   <body id="home">
@@ -25,6 +25,7 @@
       /></a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#menu">Menu</a>
+        <a href="#pizza-planner">Pizza Night Planner</a>
         <a href="./about-us.html">About us</a>
         <button class="cart-button" id="cart-button" type="button">
           Log in
@@ -577,6 +578,57 @@
           </ul>
         </section>
       </section>
+      <section
+        class="menu-help"
+        id="pizza-planner"
+        aria-labelledby="planner-title"
+      >
+        <div class="menu-help-intro">
+          <h2 id="planner-title">Pizza Night Planner</h2>
+          <form id="planner-form">
+            <label
+              >People
+              <input
+                name="people"
+                type="number"
+                min="1"
+                max="30"
+                value="4"
+                required
+            /></label>
+            <label
+              >Food budget (₱)
+              <input
+                name="budget"
+                type="number"
+                min="1"
+                step="0.01"
+                value="1200"
+                required
+            /></label>
+            <label
+              >What's the plan?
+              <select name="mood">
+                <option value="balanced">Pizza, sides and drinks</option>
+                <option value="pizza">Pizza and sides</option>
+                <option value="bundles">Start with a bundle</option>
+              </select>
+            </label>
+            <button type="submit">Build my plan</button>
+          </form>
+        </div>
+        <div>
+          <p id="planner-status" role="status"></p>
+          <ul id="planner-items"></ul>
+          <button type="button" id="planner-copy" hidden>Copy meal plan</button>
+          <textarea
+            id="planner-share"
+            aria-label="Meal plan to copy"
+            readonly
+            hidden
+          ></textarea>
+        </div>
+      </section>
       <section class="menu-help" aria-labelledby="menu-help-title">
         <div class="menu-help-intro">
           <p class="kicker">Your next pizza night</p>
@@ -711,5 +763,6 @@
     </dialog>
     <script src="./scripts/auth-popup.js?v=20261113-4" defer></script>
     <script src="./scripts/menu.js?v=20261113-4" defer></script>
+    <script src="./scripts/planner.js" defer></script>
   </body>
 </html>

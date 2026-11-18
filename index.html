@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./styles/menu.css?v=20261113-4" />
     <link rel="stylesheet" href="./styles/menu-polish.css?v=20261113-6" />
     <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-4" />
+    <link rel="stylesheet" href="./styles/product-details.css" />
   </head>
   <body id="home">
     <header class="masthead wrap">
@@ -211,6 +212,9 @@
         </div>
         <div class="menu-tools">
           <p id="menu-count" role="status"></p>
+          <button id="favorites-filter" type="button" aria-pressed="false">
+            My favorites
+          </button>
           <button id="reset-menu" type="button">Reset filters</button>
         </div>
         <p class="menu-hint">
@@ -765,7 +769,23 @@
       <button type="button" id="continue-browsing">Keep browsing</button>
     </dialog>
     <script src="./scripts/auth-popup.js?v=20261113-4" defer></script>
-    <script src="./scripts/menu.js?v=20261113-4" defer></script>
+    <script src="./scripts/menu.js?v=20261118-1" defer></script>
     <script src="./scripts/planner.js?v=20261113-6" defer></script>
+    <dialog id="product-dialog" aria-labelledby="product-title">
+      <form method="dialog">
+        <button aria-label="Close product details">Close</button>
+      </form>
+      <img id="product-photo" alt="" />
+      <p id="product-category"></p>
+      <h2 id="product-title"></h2>
+      <p id="product-price"></p>
+      <div class="product-dialog-actions">
+        <button id="product-favorite" type="button" aria-pressed="false">
+          Save favorite
+        </button>
+        <button id="product-order" type="button">Order</button>
+      </div>
+    </dialog>
+    <script src="./scripts/product-details.js?v=1" defer></script>
   </body>
 </html>

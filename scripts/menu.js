@@ -19,7 +19,13 @@ function filterMenu() {
     let sectionMatches = 0;
     for (const item of section.querySelectorAll("li")) {
       const name = item.querySelector("h4").textContent.toLowerCase();
-      item.hidden = !inCategory || !name.includes(term);
+      item.hidden =
+        !inCategory ||
+        !name.includes(term) ||
+        (document
+          .querySelector("#favorites-filter")
+          .getAttribute("aria-pressed") === "true" &&
+          item.dataset.favorite !== "true");
       if (!item.hidden) sectionMatches++;
     }
     section.hidden = sectionMatches === 0;
@@ -41,6 +47,7 @@ for (const button of buttons) {
   });
 }
 search.addEventListener("input", filterMenu);
+document.addEventListener("favoriteschange", filterMenu);
 document.querySelectorAll("[data-feature]").forEach((card) => {
   card.addEventListener("click", (event) => {
     const filter = buttons.find(
@@ -551,6 +558,9 @@ cartButton.addEventListener("click", () => {
 document.querySelector("#view-cart").addEventListener("click", openOrder);
 document.querySelector("#reset-menu").addEventListener("click", () => {
   search.value = "";
+  document
+    .querySelector("#favorites-filter")
+    .setAttribute("aria-pressed", "false");
   buttons[0].click();
   search.focus();
 });

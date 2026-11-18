@@ -110,14 +110,43 @@
   min-height: 9rem;
 }
 
-/* Meal planner cards and compact, accessible controls. */
-#pizza-planner {
-  align-items: start;
+/* Keep the optional planner compact until a customer chooses to open it. */
+.planner-panel {
+  margin-block: 32px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff8ed;
   scroll-margin-top: 24px;
 }
-
-#pizza-planner > div {
+.planner-panel > summary {
+  padding: 20px 24px;
+  cursor: pointer;
+  color: var(--red);
+}
+.planner-panel h2 {
+  display: inline;
+  margin: 0;
+  font-size: 1.15rem;
+}
+.planner-panel > summary > span {
+  display: block;
+  margin: 6px 0 0 20px;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.planner-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 0 24px 24px;
+}
+.planner-content > div {
   min-width: 0;
+}
+@media (max-width: 700px) {
+  .planner-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 #planner-form label {
@@ -187,8 +216,11 @@
 }
 
 @media (max-width: 480px) {
-  #pizza-planner {
-    padding: 20px 16px;
+  .planner-panel > summary {
+    padding: 18px 16px;
+  }
+  .planner-content {
+    padding: 0 16px 16px;
   }
 
   #planner-items li {

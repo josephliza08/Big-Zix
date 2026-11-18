@@ -48,21 +48,6 @@ for (const button of buttons) {
 }
 search.addEventListener("input", filterMenu);
 document.addEventListener("favoriteschange", filterMenu);
-document.querySelectorAll("[data-feature]").forEach((card) => {
-  card.addEventListener("click", (event) => {
-    const filter = buttons.find(
-      (button) => button.dataset.category === card.dataset.feature,
-    );
-    if (!filter) return;
-    event.preventDefault();
-    search.value = "";
-    filter.click();
-    const menu = document.querySelector("#menu");
-    menu.scrollIntoView({ block: "start" });
-    filter.focus({ preventScroll: true });
-  });
-});
-
 const delivery = document.querySelector("#delivery-form");
 const address = document.querySelector("#delivery-address");
 const locationButton = document.querySelector("#locate");

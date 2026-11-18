@@ -14,8 +14,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
-    <link rel="stylesheet" href="./styles/menu.css?v=20261113-4" />
-    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261113-6" />
+    <link rel="stylesheet" href="./styles/menu.css?v=20261118-3" />
+    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261118-3" />
     <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-4" />
     <link rel="stylesheet" href="./styles/product-details.css?v=2" />
   </head>
@@ -26,7 +26,6 @@
       /></a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#menu">Menu</a>
-        <a href="#pizza-planner">Pizza Night Planner</a>
         <a href="./about-us.html">About us</a>
         <button class="cart-button" id="cart-button" type="button">
           Log in
@@ -61,7 +60,7 @@
         </div>
         <div class="hero-copy">
           <p class="kicker">Big Zix Pizza</p>
-          <h1>Good night for pizza.</h1>
+          <h1 id="headline">Good night for pizza.</h1>
           <p>
             Pizza for sharing, bundles for the table, and something sweet after.
           </p>
@@ -88,65 +87,6 @@
           </button>
           <span class="slide-number" aria-hidden="true">01 / 04</span>
         </div>
-      </section>
-      <form class="delivery" id="delivery-form" aria-label="Delivery location">
-        <label for="delivery-address">Where should we deliver?</label>
-        <input
-          id="delivery-address"
-          type="text"
-          autocomplete="street-address"
-          placeholder="Barangay, street, or city"
-          maxlength="200"
-        />
-        <button type="submit">Save address</button>
-        <button type="button" id="locate">Use my location</button>
-        <p class="delivery-status" id="delivery-status" role="status"></p>
-      </form>
-      <section class="featured" aria-labelledby="featured-title">
-        <p class="kicker">Find your favorite</p>
-        <h2 id="featured-title">What’s on the table?</h2>
-        <div class="feature-grid">
-          <a
-            class="feature-card"
-            href="#pizza-sharing"
-            data-feature="pizza-sharing"
-          >
-            <img
-              src="./assets/menu/pexels-7813574.jpg"
-              alt="Close-up of pepperoni pizza"
-              loading="lazy"
-              decoding="async"
-            />
-            <span>Pizza for sharing <span aria-hidden="true">↗</span></span>
-          </a>
-          <a
-            class="feature-card"
-            href="#bundle-meals"
-            data-feature="bundle-meals"
-          >
-            <img
-              src="./assets/menu/pexels-18315986.jpg"
-              alt="Spaghetti with tomato sauce"
-              loading="lazy"
-              decoding="async"
-            />
-            <span>Bundle meals <span aria-hidden="true">↗</span></span>
-          </a>
-          <a
-            class="feature-card"
-            href="#sides-desserts"
-            data-feature="sides-desserts"
-          >
-            <img
-              src="./assets/menu/pexels-29908653.jpg"
-              alt="Platter of glazed chicken wings"
-              loading="lazy"
-              decoding="async"
-            />
-            <span>Sides &amp; desserts <span aria-hidden="true">↗</span></span>
-          </a>
-        </div>
-        <!-- Illustrative food photos by <a href="https://www.pexels.com/photo/close-up-of-a-pepperoni-pizza-7813574/">Engin Akyurt</a>, <a href="https://www.pexels.com/photo/pasta-with-tomato-sauce-on-a-plate-18315986/">Oss Leos</a>, <a href="https://www.pexels.com/photo/savory-glazed-chicken-wings-platter-29908653/">Snappr</a> on Pexels. -->
       </section>
       <section class="menu" id="menu" aria-labelledby="menu-title">
         <div class="menu-heading">
@@ -218,7 +158,7 @@
           <button id="reset-menu" type="button">Reset filters</button>
         </div>
         <p class="menu-hint">
-          Find your favorites. Log in or create an account before ordering.
+          Browse by category or search for something you love.
         </p>
         <p id="empty-menu" role="status" hidden>
           No matches. Try a different search or category.
@@ -582,60 +522,79 @@
           </ul>
         </section>
       </section>
-      <section
-        class="menu-help"
+      <details
+        class="planner-panel"
         id="pizza-planner"
         aria-labelledby="planner-title"
       >
-        <div class="menu-help-intro">
-          <p class="kicker">Make room for everyone</p>
-          <h2 id="planner-title">Pizza Night Planner</h2>
-          <p>Set your budget. Find a meal for the table.</p>
-          <form id="planner-form">
-            <label
-              >People
-              <input
-                name="people"
-                type="number"
-                min="1"
-                max="30"
-                value="4"
-                required
-            /></label>
-            <label
-              >Food budget (₱)
-              <input
-                name="budget"
-                type="number"
-                min="1"
-                step="0.01"
-                value="1200"
-                required
-            /></label>
-            <label
-              >What's the plan?
-              <select name="mood">
-                <option value="balanced">Pizza, sides and drinks</option>
-                <option value="pizza">Pizza and sides</option>
-                <option value="bundles">Start with a bundle</option>
-              </select>
-            </label>
-            <button type="submit">Build my plan</button>
-          </form>
+        <summary>
+          <h2 id="planner-title">Planning for a group?</h2>
+          <span>Open the Pizza Night Planner</span>
+        </summary>
+        <div class="planner-content">
+          <div>
+            <p>Set your budget. Find a meal for the table.</p>
+            <form id="planner-form">
+              <label
+                >People
+                <input
+                  name="people"
+                  type="number"
+                  min="1"
+                  max="30"
+                  value="4"
+                  required
+              /></label>
+              <label
+                >Food budget (₱)
+                <input
+                  name="budget"
+                  type="number"
+                  min="1"
+                  step="0.01"
+                  value="1200"
+                  required
+              /></label>
+              <label
+                >What's the plan?
+                <select name="mood">
+                  <option value="balanced">Pizza, sides and drinks</option>
+                  <option value="pizza">Pizza and sides</option>
+                  <option value="bundles">Start with a bundle</option>
+                </select>
+              </label>
+              <button type="submit">Build my plan</button>
+            </form>
+          </div>
+          <div>
+            <h3>Your meal plan</h3>
+            <p id="planner-status" role="status"></p>
+            <ul id="planner-items"></ul>
+            <button type="button" id="planner-copy" hidden>
+              Copy meal plan
+            </button>
+            <textarea
+              id="planner-share"
+              aria-label="Meal plan to copy"
+              readonly
+              hidden
+            ></textarea>
+          </div>
         </div>
-        <div>
-          <h3>Your meal plan</h3>
-          <p id="planner-status" role="status"></p>
-          <ul id="planner-items"></ul>
-          <button type="button" id="planner-copy" hidden>Copy meal plan</button>
-          <textarea
-            id="planner-share"
-            aria-label="Meal plan to copy"
-            readonly
-            hidden
-          ></textarea>
-        </div>
-      </section>
+      </details>
+      <form class="delivery" id="delivery-form" aria-label="Delivery location">
+        <label for="delivery-address">Where should we deliver?</label>
+        <input
+          id="delivery-address"
+          type="text"
+          autocomplete="street-address"
+          placeholder="Barangay, street, or city"
+          maxlength="200"
+        />
+        <button type="submit">Save address</button>
+        <button type="button" id="locate">Use my location</button>
+        <p class="delivery-status" id="delivery-status" role="status"></p>
+      </form>
       <section class="menu-help" aria-labelledby="menu-help-title">
         <div class="menu-help-intro">
           <p class="kicker">Your next pizza night</p>
@@ -769,7 +728,7 @@
       <button type="button" id="continue-browsing">Keep browsing</button>
     </dialog>
     <script src="./scripts/auth-popup.js?v=20261118-2" defer></script>
-    <script src="./scripts/menu.js?v=20261118-1" defer></script>
+    <script src="./scripts/menu.js?v=20261118-3" defer></script>
     <script src="./scripts/planner.js?v=20261113-6" defer></script>
     <dialog id="product-dialog" aria-labelledby="product-title">
       <form method="dialog">

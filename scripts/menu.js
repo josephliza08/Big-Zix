@@ -604,7 +604,9 @@ let reveals = [];
 
 function showProduct(index, animate = true) {
   current = (index + cards.length) % cards.length;
-  track.style.transform = "translateX(" + -100 * current + "%)";
+  cards.forEach((photo, slideIndex) => {
+    photo.classList.toggle("is-active", slideIndex === current);
+  });
 
   const product = featuredSlides[current];
   kicker.textContent = product.kicker;

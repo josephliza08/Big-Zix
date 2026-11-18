@@ -1,7 +1,14 @@
 (() => {
   const dialog = document.querySelector("#account-dialog");
   let opener;
-  function open() {
+  function open(reason = "order") {
+    const favorites = reason === "favorites";
+    dialog.querySelector(".account-kicker").textContent = favorites
+      ? "Save your favorites"
+      : "Before you order";
+    dialog.querySelector("#account-message").textContent = favorites
+      ? "Log in to save your favorite dishes. New to Big Zix? Create an account to get started."
+      : "You need to log in before ordering. New to Big Zix? Create an account to get started.";
     opener = document.activeElement;
     if (!dialog.open) dialog.showModal();
     dialog.querySelector(".account-login").focus();

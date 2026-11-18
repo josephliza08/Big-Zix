@@ -480,6 +480,7 @@ h2,
 .hero {
   /* Match the reference banner and prevent slide text from resizing it. */
   height: 380px;
+  touch-action: pan-y pinch-zoom;
   position: relative;
   isolation: isolate;
   overflow: hidden;

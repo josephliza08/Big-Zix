@@ -1,48 +1,23 @@
 const contactForm = document.querySelector("#contact-form");
-const topic = document.querySelector("#contact-topic");
 const message = document.querySelector("#contact-message");
 const contactStatus = document.querySelector("#contact-status");
-const fallback = document.querySelector("#contact-fallback");
-const copyField = document.querySelector("#contact-copy");
 
-contactForm.addEventListener("submit", async (event) => {
+contactForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  fallback.hidden = true;
-  const text = message.value.trim();
-  if (!text) {
-    contactStatus.textContent = "Write a message before copying.";
+  if (!message.value.trim()) {
+    contactStatus.textContent = "Please enter your message.";
     message.focus();
     return;
   }
 
-  const draft = "Big Zix — " + topic.value + "\n\n" + text;
-  try {
-    await navigator.clipboard.writeText(draft);
-    contactStatus.textContent =
-      "Message copied. You can paste it wherever you want to share it.";
-  } catch {
-    copyField.value = draft;
-    fallback.hidden = false;
-    contactStatus.textContent =
-      "Automatic copying is unavailable. Copy the selected text below.";
-    copyField.focus();
-    copyField.select();
-  }
+  // Connect delivery here before reporting success. Keep the customer's text.
+  contactStatus.textContent =
+    "Your message could not be sent. Your text is still here.";
 });
 
-const socialStatus = document.querySelector("#social-status");
-for (const button of document.querySelectorAll("[data-social]")) {
-  button.addEventListener("click", async () => {
-    const handle = button.firstElementChild.textContent;
-    try {
-      await navigator.clipboard.writeText(handle);
-      socialStatus.textContent =
-        "Copied " + handle + " for " + button.dataset.social + ".";
-    } catch {
-      socialStatus.textContent = "Copy this handle manually: " + handle;
-    }
-  });
-}
+message.addEventListener("input", () => {
+  contactStatus.textContent = "";
+});
 
 if (
   matchMedia(

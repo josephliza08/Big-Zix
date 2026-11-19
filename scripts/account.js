@@ -33,6 +33,5 @@ form.addEventListener("submit", (event) => {
 });
 document.querySelector("[data-reset]")?.addEventListener("click", (event) => {
   event.preventDefault();
-  status.textContent =
-    "Password reset is unavailable.";
+  status.textContent = "We couldn’t reset your password.";
 });

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Find Big Zix on social media or draft a message about our menu, group orders, or feedback."
+      content="Contact Big Zix about our menu, group orders, or feedback."
     />
     <title>Contact | Big Zix</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,8 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
     <link rel="stylesheet" href="./styles/menu.css" />
-    <link rel="stylesheet" href="./styles/contact.css" />
-    <script src="./scripts/contact.js" defer></script>
+    <link rel="stylesheet" href="./styles/contact.css?v=20261119-3" />
+    <script src="./scripts/contact.js?v=20261119-3" defer></script>
     <link rel="stylesheet" href="./styles/site-polish.css?v=20261119-1" />
   </head>
   <body>
@@ -54,55 +54,44 @@
         </div>
       </section>
       <div class="contact-grid">
-        <section class="contact-socials" aria-labelledby="social-title">
-          <p class="kicker section-label">01 / Social</p>
-          <h2 id="social-title">Find us in your feed.</h2>
-          <p class="contact-description">Tap a handle to copy it.</p>
-          <ul class="social-list">
+        <section class="contact-help" aria-labelledby="help-title">
+          <p class="kicker section-label">01 / Quick help</p>
+          <h2 id="help-title">How can we help?</h2>
+          <p class="contact-description">
+            Find a dish, plan a meal for your group, or access your account.
+          </p>
+          <ul class="contact-links">
             <li>
-              <span class="social-monogram" aria-hidden="true">IG</span>
-              <div class="social-detail">
-                <h3>Instagram</h3>
-                <p>Pizza photos and menu updates</p>
+              <span class="contact-monogram" aria-hidden="true">01</span>
+              <div class="contact-detail">
+                <h3>Explore the menu</h3>
+                <p>Browse dishes and prices.</p>
               </div>
-              <button
-                type="button"
-                data-social="Instagram"
-                aria-label="Copy proposed Instagram handle"
+              <a href="./index.html#menu"
+                >View menu <span aria-hidden="true">↗</span></a
               >
-                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
-              </button>
             </li>
             <li>
-              <span class="social-monogram" aria-hidden="true">FB</span>
-              <div class="social-detail">
-                <h3>Facebook</h3>
-                <p>Announcements and group order inquiries</p>
+              <span class="contact-monogram" aria-hidden="true">02</span>
+              <div class="contact-detail">
+                <h3>Planning for a group?</h3>
+                <p>Choose a meal that fits your budget.</p>
               </div>
-              <button
-                type="button"
-                data-social="Facebook"
-                aria-label="Copy proposed Facebook handle"
+              <a href="./index.html#pizza-planner"
+                >Plan a meal <span aria-hidden="true">↗</span></a
               >
-                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
-              </button>
             </li>
             <li>
-              <span class="social-monogram" aria-hidden="true">TT</span>
-              <div class="social-detail">
-                <h3>TikTok</h3>
-                <p>A look behind the counter</p>
+              <span class="contact-monogram" aria-hidden="true">03</span>
+              <div class="contact-detail">
+                <h3>Your account</h3>
+                <p>Log in before ordering or saving favorites.</p>
               </div>
-              <button
-                type="button"
-                data-social="TikTok"
-                aria-label="Copy proposed TikTok handle"
+              <a href="./LOGIN/LOGIN.html"
+                >Log in <span aria-hidden="true">↗</span></a
               >
-                <span>@bigzixpizza</span><span aria-hidden="true">↗</span>
-              </button>
             </li>
           </ul>
-          <p id="social-status" class="social-status" role="status"></p>
         </section>
         <section
           class="contact-note"
@@ -110,11 +99,9 @@
           aria-labelledby="contact-form-title"
         >
           <header>
-            <p class="kicker section-label">02 / Message draft</p>
+            <p class="kicker section-label">02 / Contact</p>
             <h2 id="contact-form-title">Leave us a note.</h2>
-            <p>
-              Draft a message and copy it to share once our accounts go live.
-            </p>
+            <p>Have a menu question or feedback? Write your message below.</p>
           </header>
           <form id="contact-form" method="post">
             <label for="contact-topic">What’s it about?</label>
@@ -132,12 +119,8 @@
               maxlength="2000"
               required
             ></textarea>
-            <button class="cart-button" type="submit">Copy message</button>
+            <button class="cart-button" type="submit">Send message</button>
             <p id="contact-status" role="status"></p>
-            <div id="contact-fallback" hidden>
-              <label for="contact-copy">Copy this draft manually</label>
-              <textarea id="contact-copy" rows="5" readonly></textarea>
-            </div>
           </form>
         </section>
       </div>

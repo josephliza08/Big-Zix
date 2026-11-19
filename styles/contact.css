@@ -110,13 +110,13 @@
   max-width: 39ch;
   line-height: 1.55;
 }
-.social-list {
+.contact-links {
   list-style: none;
   padding: 0;
   margin: 22px 0 0;
   border-top: 1px solid var(--line);
 }
-.social-list li {
+.contact-links li {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) auto;
   align-items: center;
@@ -124,7 +124,7 @@
   padding: 15px 0;
   border-bottom: 1px solid var(--line);
 }
-.social-monogram {
+.contact-monogram {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
@@ -134,15 +134,16 @@
   font-weight: 700;
   font-size: 0.82rem;
 }
-.social-detail h3 {
+.contact-detail h3 {
   font-size: 1rem;
 }
-.social-detail p {
+.contact-detail p {
   margin: 3px 0 0;
   color: #685044;
   font-size: 0.85rem;
 }
-.social-list button {
+.contact-links a {
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -155,15 +156,9 @@
   font-size: 0.85rem;
   font-weight: 700;
 }
-.social-list button:hover {
+.contact-links a:hover {
   border-color: var(--line);
   background: #fffdf9;
-}
-.social-status {
-  min-height: 1.5em;
-  margin: 8px 0 0;
-  font-size: 0.85rem;
-  overflow-wrap: anywhere;
 }
 .contact-note {
   position: relative;
@@ -228,10 +223,10 @@
   }
 }
 @media (max-width: 380px) {
-  .social-list li {
+  .contact-links li {
     grid-template-columns: 36px minmax(0, 1fr);
   }
-  .social-list button {
+  .contact-links a {
     grid-column: 2;
     justify-self: start;
   }

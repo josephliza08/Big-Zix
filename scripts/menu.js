@@ -62,7 +62,7 @@ function showLocation(location, prefix) {
 function saveLocation(location) {
   try {
     localStorage.setItem(locationKey, JSON.stringify(location));
-    showLocation(location, "Saved on this browser · ");
+    showLocation(location, "Saved delivery address · ");
   } catch {
     showLocation(location, "Selected for this visit · ");
   }
@@ -72,7 +72,7 @@ try {
   const saved = JSON.parse(localStorage.getItem(locationKey));
   if (saved && (saved.address || saved.coordinates)) {
     address.value = saved.address || "";
-    showLocation(saved, "Saved on this browser · ");
+    showLocation(saved, "Saved delivery address · ");
   }
 } catch {
   // The address form still works when browser storage is unavailable.

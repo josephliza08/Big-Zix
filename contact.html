@@ -19,7 +19,7 @@
     <script src="./scripts/contact.js?v=20261119-3" defer></script>
     <link rel="stylesheet" href="./styles/site-polish.css?v=20261119-1" />
   </head>
-  <body>
+  <body id="home">
     <header class="masthead wrap">
       <a class="brand" href="./index.html"
         ><img src="./assets/logo.png" alt="Big Zix home"
@@ -125,9 +125,20 @@
         </section>
       </div>
     </main>
-    <footer>
+    <footer class="site-footer" aria-label="Big Zix footer">
       <div class="footer-inner wrap">
-        <strong>Big Zix</strong><a href="./index.html#menu">Back to the menu</a>
+        <div class="footer-brand">
+          <a class="footer-logo" href="./index.html" aria-label="Big Zix home"
+            ><img src="./assets/logo.png" alt="Big Zix"
+          /></a>
+          <p>Great pizza. Good company.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="./index.html#menu">Menu</a>
+          <a href="./about-us.html">About us</a>
+          <a href="./contact.html" aria-current="page">Contact</a>
+        </nav>
+        <a class="footer-top-link" href="#home">Back to top ↑</a>
       </div>
     </footer>
   </body>

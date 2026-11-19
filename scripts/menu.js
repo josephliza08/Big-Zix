@@ -883,9 +883,10 @@ for (const category of sections) {
   }
   shelf.addEventListener("pointerup", (event) => finishDrag(event));
   shelf.addEventListener("pointercancel", (event) => finishDrag(event, true));
-  shelf.addEventListener("lostpointercapture", (event) =>
-    finishDrag(event, true),
-  );
+  shelf.addEventListener("lostpointercapture", (event) => {
+    // Ignore the child's release when capture moves to the carousel itself.
+    if (event.target === shelf) finishDrag(event, true);
+  });
   shelf.addEventListener("pointerleave", () => {
     if (drag && !drag.moving) drag = null;
   });

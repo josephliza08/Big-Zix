@@ -34,7 +34,10 @@
   });
 
   for (const name of ["pointercancel", "lostpointercapture"]) {
-    hero.addEventListener(name, () => {
+    hero.addEventListener(name, (event) => {
+      // A child releases capture when the banner takes over the gesture.
+      if (name === "lostpointercapture" && event.target !== hero) return;
+      if (!gesture || event.pointerId !== gesture.id) return;
       gesture = null;
     });
   }

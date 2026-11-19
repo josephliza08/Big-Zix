@@ -60,8 +60,9 @@
       avatar.width = avatar.height = 30;
       avatar.alt = "";
       const label = document.createElement("span");
-      label.textContent = "Profile";
       const updateAvatar = () => {
+        label.textContent = user.username;
+        profile.title = "Profile and settings for @" + user.username;
         avatar.src = new URL(
           "profile-photo.php?v=" + user.avatar_version,
           homeUrl,
@@ -92,6 +93,12 @@
         }
       });
       nav.append(logout);
+      for (const link of nav.querySelectorAll("a")) {
+        const destination = new URL(link.href);
+        if (destination.pathname === location.pathname && !destination.hash) {
+          link.setAttribute("aria-current", "page");
+        }
+      }
     }
   }
 })();

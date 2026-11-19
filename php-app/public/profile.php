@@ -23,7 +23,7 @@ if (!$user) {
   </head>
   <body>
     <header class="masthead wrap">
-      <a href="./index.php" aria-label="Big Zix home"><img src="./assets/logo.png" width="64" alt="Big Zix" /></a>
+      <a class="brand" href="./index.php" aria-label="Big Zix home"><img src="./assets/logo.png" alt="Big Zix" /></a>
       <nav class="nav" aria-label="Main navigation"><a href="./index.php#menu">Menu</a><a href="./contact.php">Contact</a></nav>
     </header>
     <main class="wrap profile-main">

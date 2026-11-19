@@ -125,6 +125,16 @@ const orderActions = document.querySelector("#order-actions");
 const orderStatus = document.querySelector("#order-status");
 const cartList = document.querySelector("#cart-list");
 const cartButton = document.querySelector("#cart-button");
+// Dock the cart inside the footer instead of adding a large empty spacer.
+const cartSummary = document.querySelector("#cart-summary");
+const siteFooter = document.querySelector(".site-footer");
+if (cartSummary && siteFooter && "IntersectionObserver" in window) {
+  siteFooter.append(cartSummary);
+  const footerObserver = new IntersectionObserver(([entry]) => {
+    cartSummary.classList.toggle("is-docked", entry.isIntersecting);
+  });
+  footerObserver.observe(siteFooter);
+}
 
 const checkout = document.querySelector("#checkout-form");
 const method = document.querySelector("#order-method");

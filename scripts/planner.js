@@ -2,8 +2,7 @@
   const form = document.querySelector("#planner-form");
   const items = document.querySelector("#planner-items");
   const status = document.querySelector("#planner-status");
-  const copy = document.querySelector("#planner-copy");
-  const share = document.querySelector("#planner-share");
+  const orderButton = document.querySelector("#planner-order");
   const format = new Intl.NumberFormat("en-PH", {
     style: "currency",
     currency: "PHP",
@@ -71,9 +70,7 @@
 
   function render(people) {
     items.replaceChildren();
-    copy.textContent = "Copy meal plan";
-    share.hidden = true;
-    copy.hidden = !current;
+    orderButton.hidden = !current;
     if (!current) {
       status.textContent =
         "No plan fits that budget. Try a larger budget or a different meal style.";
@@ -83,11 +80,9 @@
     const summary = `${money(current.total)} total · ${money(current.total / people)} per person`;
     status.textContent =
       summary + ". Estimated quantities. Confirm portions before ordering.";
-    const lines = [];
     current.lines.forEach(({ item, quantity }, index) => {
       if (!item) return;
       const line = `${quantity} × ${item.name} · ${money(item.cents * quantity)}`;
-      lines.push(line);
       const row = document.createElement("li");
       const photo = document.createElement("img");
       photo.src = item.image;
@@ -144,12 +139,6 @@
       }
       items.append(row);
     });
-    share.value = [
-      "Big Zix Pizza Night",
-      ...lines,
-      summary,
-      "Estimated quantities. Confirm portions before ordering.",
-    ].join("\n");
   }
 
   form.addEventListener("submit", (event) => {
@@ -165,15 +154,9 @@
     render(people);
   });
 
-  copy.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(share.value);
-      copy.textContent = "Copied!";
-    } catch {
-      share.hidden = false;
-      share.focus();
-      share.select();
-    }
+  orderButton.addEventListener("click", () => {
+    if (!current) return;
+    window.BigZixAccount.open("order");
   });
   form.requestSubmit();
 })();

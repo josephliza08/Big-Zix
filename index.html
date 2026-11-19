@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"
     />
     <link rel="stylesheet" href="./styles/menu.css?v=20261119-1" />
-    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261118-3" />
+    <link rel="stylesheet" href="./styles/menu-polish.css?v=20261119-2" />
     <link rel="stylesheet" href="./styles/auth-popup.css?v=20261113-4" />
     <link rel="stylesheet" href="./styles/product-details.css?v=2" />
     <link rel="stylesheet" href="./styles/site-polish.css?v=20261119-1" />
@@ -571,15 +571,14 @@
             <h3>Your meal plan</h3>
             <p id="planner-status" role="status"></p>
             <ul id="planner-items"></ul>
-            <button type="button" id="planner-copy" hidden>
-              Copy meal plan
-            </button>
-            <textarea
-              id="planner-share"
-              aria-label="Meal plan to copy"
-              readonly
+            <button
+              type="button"
+              id="planner-order"
+              aria-haspopup="dialog"
               hidden
-            ></textarea>
+            >
+              Order this meal
+            </button>
           </div>
         </div>
       </details>
@@ -730,7 +729,7 @@
     </dialog>
     <script src="./scripts/auth-popup.js?v=20261118-2" defer></script>
     <script src="./scripts/menu.js?v=20261118-4" defer></script>
-    <script src="./scripts/planner.js?v=20261113-6" defer></script>
+    <script src="./scripts/planner.js?v=20261119-2" defer></script>
     <dialog id="product-dialog" aria-labelledby="product-title">
       <form method="dialog">
         <button aria-label="Close product details">Close</button>

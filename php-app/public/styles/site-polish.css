@@ -109,3 +109,29 @@ textarea {
     transform: none;
   }
 }
+
+/* Shared account navigation and footer. */
+.nav-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.nav-profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.site-copyright {
+  margin: 0;
+  padding: 22px 16px;
+  color: #685247;
+  font-size: 0.78rem;
+  text-align: center;
+  line-height: 1.5;
+}
+.copyright-footer {
+  grid-column: 1 / -1;
+  width: 100%;
+}

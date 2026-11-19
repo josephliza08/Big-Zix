@@ -407,6 +407,7 @@ $catalog = query('SELECT * FROM products WHERE active = 1 ORDER BY id')->fetchAl
         </nav>
         <a class="footer-top-link" href="#home">Back to top ↑</a>
       </div>
+      <p class="site-copyright">&copy; <?= date('Y') ?> Big Zix. All rights reserved.</p>
     </footer>
 
     <dialog
@@ -436,6 +437,11 @@ $catalog = query('SELECT * FROM products WHERE active = 1 ORDER BY id')->fetchAl
             maxlength="200"
           />
         </div>
+        <label for="order-payment">Payment method</label>
+        <select id="order-payment" name="payment_method">
+          <option value="cash">Cash on pickup</option>
+        </select>
+        <p class="checkout-note">No payment is taken now. Pay in cash when you receive your order.</p>
         <details class="optional-extras">
           <summary>Add drinks, sides or dips (optional)</summary>
           <fieldset class="checkout-extras">

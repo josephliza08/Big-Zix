@@ -12,5 +12,7 @@ $pdo = new PDO('sqlite:' . database_path());
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pdo->exec('PRAGMA journal_mode = WAL');
 $pdo->exec(file_get_contents(dirname(__DIR__) . '/database/schema.sql'));
+require dirname(__DIR__) . '/src/migrations.php';
+migrate_profiles($pdo);
 $pdo->exec(file_get_contents(dirname(__DIR__) . '/database/seed.sql'));
 echo "Database initialized. Existing accounts and orders were preserved.\n";

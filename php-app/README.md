@@ -30,15 +30,27 @@ Refresh the website and open **Staff dashboard**. Staff can change order status,
 ## Features connected to the database
 
 - Signup, login and logout using server sessions and hashed passwords.
+- Unique usernames; login with an email address or username.
+- Compact profile settings with a display name, changeable profile picture and password settings.
+- Picture preview, automatic square crop/resize, save/cancel and removal. Pictures are stored privately in SQLite and served only to their signed-in owner.
 - Public menu and product details; login required for favorites and ordering.
 - Favorites saved per account and restored after login.
 - Cart, pickup/delivery checkout, database-priced receipts and order history.
+- Cash on delivery or pickup, with unpaid/paid tracking. Staff can confirm cash collection once an order is ready or completed.
 - Duplicate-submit protection through a unique request key.
 - Contact messages saved to the staff inbox (this does not send email).
 - Staff-only order processing, message read status and menu editing.
 - Existing carousel, search, filters, planner and responsive styling retained.
 
 The cart and delivery-location convenience setting use browser storage. Accounts, favorites, submitted orders and contact messages use SQL. Payment is on pickup/delivery; online payment processing is not integrated.
+
+## Updating an existing installation
+
+Back up the private SQLite database, then run `php bin/init.php`. The migration adds profile and payment fields without removing accounts or orders. Existing accounts receive a unique `user_<id>` username and can continue logging in with their email. Open **Profile → Profile settings** to choose another username; changing it requires the current password. Changing a password invalidates the account's other sessions.
+
+Display names and usernames are separate: the display name appears on the profile, while the unique username is used for login. The account email is read-only. Google/Facebook login, phone login and online payments are intentionally deferred.
+
+The copyright footer uses the server's current year. Profile transitions respect reduced-motion preferences.
 
 ## Folder structure
 

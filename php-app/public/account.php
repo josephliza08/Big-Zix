@@ -27,5 +27,6 @@ if (!$user) { header('Location: ./LOGIN/LOGIN.php'); exit; }
       <p id="dashboard-status" role="status"></p>
       <div id="dashboard-content"></div>
     </main>
+    <footer class="copyright-footer"><p class="site-copyright">&copy; <?= date('Y') ?> Big Zix. All rights reserved.</p></footer>
   </body>
 </html>

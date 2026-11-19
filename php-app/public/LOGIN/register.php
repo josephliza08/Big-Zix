@@ -35,15 +35,17 @@ $user = current_user();
 
       <form method="post">
         <div class="field">
-          <label for="account-name">Name</label>
+          <label for="account-name">Username</label>
           <input
             type="text"
-            name="name" maxlength="100" autocomplete="name"
+            name="username" minlength="3" maxlength="24" autocomplete="username" pattern="[A-Za-z][A-Za-z0-9_]{2,23}" aria-describedby="username-hint"
             id="account-name"
-            placeholder="Enter your name"
+            placeholder="Choose a username"
             required
           />
         </div>
+
+        <p id="username-hint" class="password-hint">3–24 letters, numbers or underscores; start with a letter.</p>
 
         <div class="field">
           <label for="account-email">Email</label>
@@ -56,7 +58,6 @@ $user = current_user();
           />
         </div>
 
-        <p class="account-notice">Use at least 10 characters for your password.</p>
         <div class="field">
           <label for="account-password">Password</label>
           <div class="password-box">
@@ -64,6 +65,7 @@ $user = current_user();
               type="password"
               name="password" minlength="10" maxlength="72" autocomplete="new-password"
               id="account-password"
+              aria-describedby="password-hint"
               placeholder="Enter your Password"
               required
             />
@@ -91,6 +93,8 @@ $user = current_user();
             </button>
           </div>
         </div>
+
+        <p id="password-hint" class="password-hint">Use at least 10 characters.</p>
 
         <div class="field">
           <label for="account-confirmPassword">Confirm password</label>
@@ -138,5 +142,6 @@ $user = current_user();
     </main>
     <script src="../scripts/api.js" defer></script>
     <script src="../scripts/account.js?v=20261119-3" defer></script>
+    <footer class="copyright-footer"><p class="site-copyright">&copy; <?= date('Y') ?> Big Zix. All rights reserved.</p></footer>
   </body>
 </html>

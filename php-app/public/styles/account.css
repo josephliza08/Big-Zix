@@ -64,6 +64,12 @@ h1 {
 .field {
   margin-bottom: 15px;
 }
+.password-hint {
+  margin: -8px 0 15px;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+}
 label {
   display: block;
   margin-bottom: 5px;

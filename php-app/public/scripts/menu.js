@@ -398,13 +398,15 @@ function showConfirmation(order) {
     (order.method === "delivery" ? "Delivery to " + order.address : "Pickup") +
     ". Status: " +
     order.status +
-    ". Pay upon pickup or delivery.";
+    ". Payment: cash, unpaid. Pay when you receive your order.";
   orderStatus.hidden = false;
   action("Back to menu", () => orderDialog.close());
   orderActions.firstElementChild.focus();
 }
 
 function updateMethod() {
+  document.querySelector("#order-payment option").textContent =
+    method.value === "delivery" ? "Cash on delivery" : "Cash on pickup";
   const delivery = method.value === "delivery";
   addressField.hidden = !delivery;
   checkoutAddress.required = delivery;
@@ -483,6 +485,7 @@ checkout.addEventListener("submit", async (event) => {
   if (submittingOrder || !cart.size) return;
   const payload = {
     method: method.value,
+    payment_method: "cash",
     address: method.value === "delivery" ? checkoutAddress.value.trim() : "",
     items: [...cart.values()].map((item) => ({
       product_id: item.id,

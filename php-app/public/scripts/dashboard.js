@@ -76,6 +76,12 @@
               : "Pickup at the restaurant",
           ),
         );
+        card.append(
+          element(
+            "p",
+            `Cash ${order.method === "delivery" ? "on delivery" : "on pickup"} · ${order.payment_status || "unpaid"}`,
+          ),
+        );
         const list = element("ul");
         for (const item of order.items)
           list.append(
@@ -94,6 +100,16 @@
                 status: next,
               }),
             );
+          if (
+            order.payment_status === "unpaid" &&
+            ["ready", "completed"].includes(order.status)
+          ) {
+            actions.append(
+              action("Confirm cash collected", "payment-collected", {
+                id: order.id,
+              }),
+            );
+          }
           card.append(actions);
         }
         target.append(card);

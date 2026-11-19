@@ -3,6 +3,7 @@ declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 require dirname(__DIR__) . '/src/http.php';
 require dirname(__DIR__) . '/src/orders.php';
+require dirname(__DIR__) . '/src/accounts.php';
 
 try {
     $action = $_GET['action'] ?? '';
@@ -34,40 +35,75 @@ try {
 
         case 'POST:register':
             rate_limit('register', 10, 3600);
-            $name = text_field($data, 'name', 2, 100);
+            $username = username_field($data);
+            $name = $username;
             $email = email_field($data);
-            $password = $data['password'] ?? '';
-            if (!is_string($password) || strlen($password) < 10 || strlen($password) > 72) {
-                fail('Use a password between 10 and 72 bytes long.');
-            }
+            $password = password_field($data);
             if (($data['confirmPassword'] ?? '') !== $password) {
                 fail('The passwords must match.');
             }
             if (query('SELECT id FROM users WHERE email = ?', [$email])->fetch()) {
                 fail('An account already uses this email. Please log in.', 409);
             }
-            query('INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)', [$name, $email, password_hash($password, PASSWORD_DEFAULT)]);
+            if (query('SELECT id FROM users WHERE username = ?', [$username])->fetch()) {
+                fail('That username is already taken.', 409);
+            }
+            query('INSERT INTO users (name, username, email, password_hash) VALUES (?, ?, ?, ?)', [$name, $username, $email, password_hash($password, PASSWORD_DEFAULT)]);
             session_regenerate_id(true);
             $_SESSION['user_id'] = (int) db()->lastInsertId();
+            $_SESSION['auth_version'] = 1;
             $_SESSION['csrf'] = bin2hex(random_bytes(32));
             respond(['user' => current_user(), 'csrf' => csrf_token()], 201);
 
         case 'POST:login':
             rate_limit('login', 20, 900);
-            $email = email_field($data);
+            $identifier = strtolower(text_field($data, isset($data['identifier']) ? 'identifier' : 'email', 3, 254));
             $password = $data['password'] ?? '';
             if (!is_string($password) || strlen($password) > 72) {
-                fail('Email or password is incorrect.', 401);
+                fail('Login details are incorrect.', 401);
             }
-            $user = query('SELECT * FROM users WHERE email = ?', [$email])->fetch();
+            $user = query('SELECT * FROM users WHERE email = ? OR username = ?', [$identifier, $identifier])->fetch();
             $hash = $user['password_hash'] ?? '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.';
             if (!password_verify($password, $hash) || !$user) {
-                fail('Email or password is incorrect.', 401);
+                fail('Login details are incorrect.', 401);
             }
             session_regenerate_id(true);
             $_SESSION['user_id'] = (int) $user['id'];
+            $_SESSION['auth_version'] = (int) $user['auth_version'];
             $_SESSION['csrf'] = bin2hex(random_bytes(32));
             respond(['user' => current_user(), 'csrf' => csrf_token()]);
+
+        case 'POST:profile':
+            $user = require_user();
+            save_profile($user, $data);
+            respond(['user' => current_user(), 'message' => 'Profile saved.']);
+
+        case 'POST:password':
+            $user = require_user();
+            verify_current_password($user, $data);
+            $password = password_field($data, 'newPassword');
+            if (($data['confirmPassword'] ?? '') !== $password) {
+                fail('The new passwords must match.');
+            }
+            query('UPDATE users SET password_hash = ?, auth_version = auth_version + 1 WHERE id = ?', [password_hash($password, PASSWORD_DEFAULT), $user['id']]);
+            $_SESSION['auth_version'] = (int) query('SELECT auth_version FROM users WHERE id = ?', [$user['id']])->fetchColumn();
+            session_regenerate_id(true);
+            $_SESSION['csrf'] = bin2hex(random_bytes(32));
+            respond(['message' => 'Password updated. Other sessions have been signed out.', 'csrf' => csrf_token()]);
+
+        case 'POST:remove-photo':
+            $user = require_user();
+            query('UPDATE users SET avatar = NULL, avatar_type = NULL, avatar_version = avatar_version + 1 WHERE id = ?', [$user['id']]);
+            respond(['user' => current_user()]);
+
+        case 'POST:payment-collected':
+            require_user(true);
+            $id = positive_id($data['id'] ?? null);
+            $updated = query("UPDATE orders SET payment_status = 'paid' WHERE id = ? AND status IN ('ready', 'completed') AND payment_status = 'unpaid'", [$id]);
+            if (!$updated->rowCount()) {
+                fail('Cash can be recorded once the order is ready or completed.', 409);
+            }
+            respond(['payment_status' => 'paid']);
 
         case 'POST:logout':
             $_SESSION = [];

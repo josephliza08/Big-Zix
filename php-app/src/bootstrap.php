@@ -40,7 +40,14 @@ function current_user(): ?array
     if (empty($_SESSION['user_id'])) {
         return null;
     }
-    $user = query('SELECT id, name, email, role FROM users WHERE id = ?', [$_SESSION['user_id']])->fetch();
+    $user = query('SELECT id, name, username, email, role, avatar_version, auth_version FROM users WHERE id = ?', [$_SESSION['user_id']])->fetch();
+    if ($user && (int) $user['auth_version'] !== (int) ($_SESSION['auth_version'] ?? 1)) {
+        unset($_SESSION['user_id']);
+        return null;
+    }
+    if ($user) {
+        unset($user['auth_version']);
+    }
     return $user ?: null;
 }
 

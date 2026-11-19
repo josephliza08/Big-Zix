@@ -30,6 +30,14 @@ One user can have many orders. One order can have many order items. Favorites co
 
 ## Questions your professor may ask
 
+**How do profiles work?** Each user has a unique username for login and a display name for their profile. Picture uploads are resized in the browser, checked again by PHP, and saved in the user's database row. The image endpoint only returns the signed-in user's picture.
+
+**What can users change in settings?** Their display name, username, profile picture and password. Username changes require the current password. Password changes also sign out other sessions.
+
+**How do cash payments work?** Checkout records cash on delivery or pickup. The order initially says unpaid. Staff confirms cash collection after receiving the money; placing an order alone never marks it paid.
+
+**How did you keep old accounts?** An idempotent migration adds the new fields without deleting existing records. Existing users keep email login and can choose their username in settings.
+
 **Why SQLite?** It is a relational database that supports SQL. It stores data in a file and needs no separate database server, making the project easy to run for class. MySQL is another database system; SQL is the language.
 
 **How do you protect passwords?** PHP's `password_hash` stores a hash, and `password_verify` checks login attempts. We do not store readable passwords.

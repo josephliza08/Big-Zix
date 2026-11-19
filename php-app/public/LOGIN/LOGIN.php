@@ -37,12 +37,12 @@ $user = current_user();
 
       <form method="post">
         <div class="field">
-          <label for="account-email">Email</label
+          <label for="account-email">Email or username</label
           ><input
-            type="email"
-            name="email" maxlength="254" autocomplete="email"
+            type="text"
+            name="identifier" maxlength="254" autocomplete="username"
             id="account-email"
-            placeholder="Enter your email address"
+            placeholder="Enter your email or username"
             required
           />
         </div>
@@ -95,5 +95,6 @@ $user = current_user();
     </main>
     <script src="../scripts/api.js" defer></script>
     <script src="../scripts/account.js?v=20261119-3" defer></script>
+    <footer class="copyright-footer"><p class="site-copyright">&copy; <?= date('Y') ?> Big Zix. All rights reserved.</p></footer>
   </body>
 </html>

@@ -24,15 +24,20 @@ function client() {
     csrf = "";
   return async (action, data, expected = 200, token = true) => {
     const response = await fetch(
-      "http://127.0.0.1:8081/api.php?action=" + action,
+      "http://127.0.0.1:8081/" +
+        (action === "photo" ? "profile-photo.php" : "api.php?action=" + action),
       {
         method: data === undefined ? "GET" : "POST",
         headers: {
           Cookie: cookie,
-          "Content-Type": "application/json",
+          ...(data instanceof FormData
+            ? {}
+            : { "Content-Type": "application/json" }),
           "X-CSRF-Token": token ? csrf : "invalid",
         },
-        ...(data === undefined ? {} : { body: JSON.stringify(data) }),
+        ...(data === undefined
+          ? {}
+          : { body: data instanceof FormData ? data : JSON.stringify(data) }),
       },
     );
     const set = response.headers.get("set-cookie");
@@ -66,6 +71,7 @@ function client() {
     await a("register", {}, 403, false);
     const credentials = {
       name: "Test Customer",
+      username: "test_customer",
       email: "customer@example.test",
       password: "Local-test-1234!",
       confirmPassword: "Local-test-1234!",
@@ -131,7 +137,15 @@ function client() {
       "Invalid requests leave no partial orders",
     );
     await b("session");
-    await b("register", { ...credentials, email: "second@example.test" }, 201);
+    await b(
+      "register",
+      {
+        ...credentials,
+        email: "second@example.test",
+        username: "second_customer",
+      },
+      201,
+    );
     check((await b("orders")).orders.length === 0, "Orders are private");
     check((await b("favorites")).ids.length === 0, "Favorites are private");
     await a("logout", {});
@@ -204,6 +218,125 @@ function client() {
         page + " renders",
       );
     }
+
+    check(
+      order.payment_method === "cash" && order.payment_status === "unpaid",
+      "Cash order starts unpaid",
+    );
+    await a("payment-collected", { id: order.id });
+    await a("payment-collected", { id: order.id }, 409);
+    check(
+      (await a("orders")).orders[0].payment_status === "paid",
+      "Staff records cash collection",
+    );
+    await a(
+      "orders",
+      {
+        ...payload,
+        request_key: "no-online-payments-01",
+        payment_method: "card",
+      },
+      422,
+    );
+    await a("profile", { name: "New Display Name", username: "test_customer" });
+    check(
+      (await a("session")).user.name === "New Display Name",
+      "Display name saved",
+    );
+    await a(
+      "profile",
+      {
+        name: "New Display Name",
+        username: "new_username",
+        currentPassword: "wrong",
+      },
+      403,
+    );
+    await a(
+      "profile",
+      {
+        name: "New Display Name",
+        username: "second_customer",
+        currentPassword: credentials.password,
+      },
+      409,
+    );
+    await a("profile", {
+      name: "New Display Name",
+      username: "new_username",
+      currentPassword: credentials.password,
+    });
+    await a("logout", {});
+    await a("login", {
+      identifier: "NEW_USERNAME",
+      password: credentials.password,
+    });
+    check(
+      (await a("session")).user.username === "new_username",
+      "Username login is case insensitive",
+    );
+    const badPhoto = new FormData();
+    badPhoto.append(
+      "photo",
+      new Blob(["<svg onload=alert(1)></svg>"], { type: "image/svg+xml" }),
+      "photo.svg",
+    );
+    await a("photo", badPhoto, 422);
+    const photo = new FormData();
+    photo.append(
+      "photo",
+      new Blob(
+        [
+          Buffer.from(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aP4sAAAAASUVORK5CYII=",
+            "base64",
+          ),
+        ],
+        { type: "image/png" },
+      ),
+      "photo.png",
+    );
+    await a("photo", photo, 403, false);
+    await a("photo", photo);
+    check((await a("session")).user.avatar_version === 1, "Photo saved");
+    await a("remove-photo", {});
+    check((await a("session")).user.avatar_version === 2, "Photo removed");
+    const secondSession = client();
+    await secondSession("session");
+    await secondSession("login", {
+      identifier: "new_username",
+      password: credentials.password,
+    });
+    await a(
+      "password",
+      {
+        currentPassword: "wrong",
+        newPassword: "Replacement-1234!",
+        confirmPassword: "Replacement-1234!",
+      },
+      403,
+    );
+    await a("password", {
+      currentPassword: credentials.password,
+      newPassword: "Replacement-1234!",
+      confirmPassword: "Replacement-1234!",
+    });
+    await secondSession("orders", undefined, 401);
+    await a("logout", {});
+    await a(
+      "login",
+      { identifier: "new_username", password: credentials.password },
+      401,
+    );
+    await a("login", {
+      identifier: "new_username",
+      password: "Replacement-1234!",
+    });
+    execFileSync(php, ["bin/init.php"], { cwd: root, env });
+    check(
+      (await a("session")).user.username === "new_username",
+      "Re-running migration preserves profile",
+    );
     console.log("Passed " + checks + " integration checks.");
   } finally {
     server.kill();

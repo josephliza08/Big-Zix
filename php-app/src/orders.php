@@ -15,6 +15,9 @@ function create_order(array $user, array $data): array
     if (!in_array($method, ['pickup', 'delivery'], true)) {
         fail('Choose pickup or delivery.');
     }
+    if (($data['payment_method'] ?? 'cash') !== 'cash') {
+        fail('Please choose cash for this order.');
+    }
     $address = $method === 'delivery' ? text_field($data, 'address', 8, 500) : '';
     $items = $data['items'] ?? null;
     if (!is_array($items) || !array_is_list($items) || count($items) < 1 || count($items) > 50) {

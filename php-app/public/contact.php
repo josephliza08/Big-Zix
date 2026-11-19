@@ -151,6 +151,7 @@ $user = current_user();
         </nav>
         <a class="footer-top-link" href="#home">Back to top ↑</a>
       </div>
+      <p class="site-copyright">&copy; <?= date('Y') ?> Big Zix. All rights reserved.</p>
     </footer>
   </body>
 </html>

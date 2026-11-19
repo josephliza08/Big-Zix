@@ -1,0 +1,24 @@
+-- Menu seed: safe to run again; existing staff edits are preserved.
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Big Zix Bundle', 'todays-offer', './assets/menu/pexels-33722680.jpg', 69900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Classic Cheese Deal', 'todays-offer', './assets/menu/pexels-13310433.jpg', 29900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Pepperoni Duo', 'todays-offer', './assets/menu/pexels-7813574.jpg', 54900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Family Pizza Deal', 'todays-offer', './assets/menu/pexels-28153641.jpg', 89900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Pizza & Sides Deal', 'todays-offer', './assets/menu/pexels-5017829.jpg', 57900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Big Zix Classic', 'best-seller', './assets/menu/pexels-30232160.jpg', 34900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Pepperoni Feast', 'best-seller', './assets/menu/pexels-7813574.jpg', 39900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('All-In Special', 'best-seller', './assets/menu/pexels-27582711.jpg', 44900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Pepperoni Party Pizza', 'pizza-sharing', './assets/menu/pexels-7813574.jpg', 59900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Hawaiian Feast', 'pizza-sharing', './assets/menu/pexels-32611521.jpg', 54900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('All-In Overload', 'pizza-sharing', './assets/menu/pexels-27582711.jpg', 64900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Pizza & Pasta Bundle', 'bundle-meals', './assets/menu/pexels-6223229.jpg', 69900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Family Meal', 'bundle-meals', './assets/menu/pexels-31142295.jpg', 99900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Friends Combo', 'bundle-meals', './assets/menu/pexels-33722680.jpg', 84900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Garlic Bread', 'sides-desserts', './assets/menu/pexels-37043987.jpg', 9900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Chicken Wings', 'sides-desserts', './assets/menu/pexels-29908653.jpg', 19900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Chocolate Brownie', 'sides-desserts', './assets/menu/pexels-6390686.jpg', 8900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Cola', 'drinks-extras', './assets/menu/pexels-8879626.jpg', 4900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Iced Tea', 'drinks-extras', './assets/menu/pexels-18263138.jpg', 4900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Lemonade', 'drinks-extras', './assets/menu/pexels-33107436.jpg', 6900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('French Fries', 'drinks-extras', './assets/menu/pexels-5860680.jpg', 8900);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Garlic Dip', 'drinks-extras', './assets/menu/pexels-9304931.jpg', 2500);
+INSERT OR IGNORE INTO products (name, category, image, price_centavos) VALUES ('Chili Flakes', 'drinks-extras', './assets/menu/pexels-11733646.jpg', 1500);

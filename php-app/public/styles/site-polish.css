@@ -1,0 +1,111 @@
+/* Shared interaction styles. Page layouts stay in their own stylesheets. */
+html {
+  scrollbar-gutter: stable;
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #8d201c;
+  outline-offset: 3px;
+}
+
+:where(button, input, select, textarea) {
+  min-height: 44px;
+}
+
+:where(.nav, .about-nav) a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+:where(.nav, .about-nav, .footer-nav) a {
+  text-underline-offset: 5px;
+}
+
+:where(input, select, textarea):focus-visible {
+  border-color: #8d201c;
+}
+
+textarea {
+  max-width: 100%;
+  resize: vertical;
+}
+
+.contact-detail,
+.account-status {
+  overflow-wrap: anywhere;
+}
+
+/* Animate feedback, not layout dimensions or every property. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :where(
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    .about-cta,
+    .contact-intro a
+  ) {
+    transition:
+      background-color 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
+  }
+
+  :where(.nav, .about-nav, .footer-nav, .table-links) a {
+    transition: color 160ms ease-out;
+  }
+
+  #product-dialog[open],
+  .card {
+    animation: surface-appear 180ms ease-out;
+  }
+
+  @keyframes surface-appear {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-cta:hover,
+  input[type="submit"]:hover {
+    background-color: #681410;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Keep mobile form text readable and avoid focus zoom on small fields. */
+  input,
+  select,
+  textarea,
+  #contact-form select,
+  #contact-form textarea,
+  #planner-form input,
+  #planner-form select,
+  #planner-items select {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .art,
+  .contact-photo {
+    transform: none;
+  }
+}

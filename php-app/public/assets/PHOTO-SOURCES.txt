@@ -1,0 +1,24 @@
+Stock food photos from Pexels. They illustrate the menu items.
+
+assets/menu/pexels-7813574.jpg — https://www.pexels.com/photo/7813574/
+assets/menu/pexels-6223229.jpg — https://www.pexels.com/photo/6223229/
+assets/menu/pexels-29908653.jpg — https://www.pexels.com/photo/29908653/
+assets/menu/pexels-18315986.jpg — https://www.pexels.com/photo/18315986/
+assets/menu/pexels-33722680.jpg — https://www.pexels.com/photo/33722680/
+assets/menu/pexels-13310433.jpg — https://www.pexels.com/photo/13310433/
+assets/menu/pexels-28153641.jpg — https://www.pexels.com/photo/28153641/
+assets/menu/pexels-5017829.jpg — https://www.pexels.com/photo/5017829/
+assets/menu/pexels-30232160.jpg — https://www.pexels.com/photo/30232160/
+assets/menu/pexels-27582711.jpg — https://www.pexels.com/photo/27582711/
+assets/menu/pexels-32611521.jpg — https://www.pexels.com/photo/32611521/
+assets/menu/pexels-31142295.jpg — https://www.pexels.com/photo/31142295/
+assets/menu/pexels-37043987.jpg — https://www.pexels.com/photo/37043987/
+assets/menu/pexels-6390686.jpg — https://www.pexels.com/photo/6390686/
+
+Checkout add-on photos
+assets/menu/pexels-8879626.jpg — https://www.pexels.com/photo/a-cola-on-a-drinking-glass-with-ice-cubes-8879626/
+assets/menu/pexels-18263138.jpg — https://www.pexels.com/photo/glass-of-iced-tea-18263138/
+assets/menu/pexels-33107436.jpg — https://www.pexels.com/photo/refreshing-lemonade-with-ice-and-mint-leaves-33107436/
+assets/menu/pexels-5860680.jpg — https://www.pexels.com/photo/close-up-of-fries-in-a-bowl-5860680/
+assets/menu/pexels-9304931.jpg — https://www.pexels.com/photo/a-dipping-sauce-in-a-bowl-9304931/
+assets/menu/pexels-11733646.jpg — https://www.pexels.com/photo/close-up-shot-of-seasonings-in-wooden-bowls-11733646/

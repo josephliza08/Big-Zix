@@ -1,0 +1,236 @@
+/* Customer guidance: compact, semantic content beneath the menu. */
+.menu-help {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 5vw, 64px);
+  margin-block: 48px 24px;
+  padding: clamp(24px, 4vw, 44px);
+  background: #f0dfc9;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.menu-help h2 {
+  margin: 8px 0 12px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.1;
+}
+.menu-help p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.menu-help a {
+  color: var(--red);
+  text-underline-offset: 4px;
+}
+.help-menu-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 700;
+}
+.menu-faq details {
+  border-bottom: 1px solid #cdb89d;
+}
+.menu-faq summary {
+  padding: 18px 0;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+}
+.menu-faq details p {
+  margin: 0 0 18px;
+}
+.menu-faq summary::marker {
+  color: var(--red);
+}
+
+/* Animate only transforms and opacity; reduced-motion users get no motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .product-add,
+  .cart-button,
+  .account-actions a {
+    transition: transform 140ms ease-out;
+  }
+  .product-add:active,
+  .cart-button:active,
+  .account-actions a:active {
+    transform: scale(0.97);
+  }
+  .account-dialog[open] {
+    animation: account-appear 180ms ease-out;
+  }
+  @keyframes account-appear {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (max-width: 700px) {
+  .menu-help {
+    grid-template-columns: 1fr;
+  }
+}
+
+#planner-form {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 24rem;
+}
+
+#planner-form label,
+#planner-items label {
+  display: grid;
+  gap: 0.25rem;
+}
+
+#pizza-planner :is(input, select, button, textarea) {
+  font: inherit;
+  padding: 0.55rem;
+  border: 1px solid #a98c72;
+  border-radius: 0.4rem;
+}
+
+#pizza-planner button {
+  background: var(--red);
+  color: white;
+  cursor: pointer;
+}
+
+#planner-items li + li {
+  margin-top: 0.75rem;
+}
+
+/* Keep the optional planner compact until a customer chooses to open it. */
+.planner-panel {
+  margin-block: 32px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff8ed;
+  scroll-margin-top: 24px;
+}
+.planner-panel > summary {
+  padding: 20px 24px;
+  cursor: pointer;
+  color: var(--red);
+}
+.planner-panel h2 {
+  display: inline;
+  margin: 0;
+  font-size: 1.15rem;
+}
+.planner-panel > summary > span {
+  display: block;
+  margin: 6px 0 0 20px;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.planner-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 0 24px 24px;
+}
+.planner-content > div {
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  .planner-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+#planner-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#planner-form :is(input, select) {
+  width: 100%;
+  min-height: 46px;
+  background: #fffaf2;
+  color: var(--ink);
+}
+
+#planner-form button,
+#planner-order {
+  min-height: 46px;
+  font-weight: 700;
+}
+
+#planner-items {
+  padding: 0;
+  list-style: none;
+}
+
+#planner-items li {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+  padding: 16px;
+  background: #fffaf2;
+  border: 1px solid #dfcbb1;
+  border-radius: 12px;
+}
+
+#planner-items img {
+  flex: 0 0 76px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+#planner-items li > div {
+  flex: 1;
+  min-width: 0;
+}
+
+#planner-items strong {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+#planner-items label {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+#planner-items select {
+  width: 100%;
+  min-width: 0;
+  background: white;
+  color: var(--ink);
+}
+
+#pizza-planner :focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .planner-panel > summary {
+    padding: 18px 16px;
+  }
+  .planner-content {
+    padding: 0 16px 16px;
+  }
+
+  #planner-items li {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  #planner-items img {
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

@@ -160,10 +160,16 @@ $catalog = query('SELECT * FROM products WHERE active = 1 ORDER BY id')->fetchAl
         </div>
         <div class="menu-tools">
           <p id="menu-count" role="status"></p>
-          <button id="favorites-filter" type="button" aria-pressed="false">
-            My favorites
-          </button>
-          <button id="reset-menu" type="button">Reset filters</button>
+          <div class="menu-filter-actions" role="group" aria-label="Menu filters">
+            <button id="favorites-filter" type="button" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+              <span>My favorites</span>
+            </button>
+            <button id="reset-menu" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6" /></svg>
+              <span>Reset filters</span>
+            </button>
+          </div>
         </div>
         <p class="menu-hint">
           Browse by category or search for something you love.

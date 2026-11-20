@@ -19,7 +19,15 @@ if (!$user) { header('Location: ./LOGIN/LOGIN.php'); exit; }
     <script src="./scripts/dashboard.js" defer></script>
   </head>
   <body data-staff="false">
-    <header class="masthead wrap"><a href="./index.php">Big Zix</a><nav class="nav" aria-label="Main navigation"><a href="./index.php#menu">Menu</a><a href="./contact.php">Contact</a></nav></header>
+    <header class="masthead wrap">
+      <a class="brand" href="./index.php" aria-label="Big Zix home">
+        <img src="./assets/logo.png" alt="Big Zix" />
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="./index.php#menu">Menu</a>
+        <a href="./contact.php">Contact</a>
+      </nav>
+    </header>
     <main class="wrap dashboard-main">
       <h1>My orders</h1>
       <p>Welcome, <?= e($user['name']) ?>.</p>

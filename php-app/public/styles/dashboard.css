@@ -30,8 +30,9 @@
   background: var(--red);
   color: white;
   border: 0;
-  border-radius: 8px;
+  border-radius: 999px;
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
 }
 .dashboard-card label {

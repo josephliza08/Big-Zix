@@ -19,7 +19,15 @@ if ($user['role'] !== 'admin') { http_response_code(403); echo 'Staff access is 
     <script src="./scripts/dashboard.js" defer></script>
   </head>
   <body data-staff="true">
-    <header class="masthead wrap"><a href="./index.php">Big Zix</a><nav class="nav" aria-label="Main navigation"><a href="./index.php#menu">Menu</a><a href="./contact.php">Contact</a></nav></header>
+    <header class="masthead wrap">
+      <a class="brand" href="./index.php" aria-label="Big Zix home">
+        <img src="./assets/logo.png" alt="Big Zix" />
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="./index.php#menu">Menu</a>
+        <a href="./contact.php">Contact</a>
+      </nav>
+    </header>
     <main class="wrap dashboard-main">
       <h1>Staff dashboard</h1>
       <p>Welcome, <?= e($user['name']) ?>.</p>

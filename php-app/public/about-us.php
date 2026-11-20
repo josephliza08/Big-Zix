@@ -12,6 +12,7 @@ $page = str_replace(
 );
 $metadata = '<meta name="csrf-token" content="' . e(csrf_token()) . '" />'
     . '<meta name="bigzix-user" content="' . e(json_encode($user)) . '" />'
-    . '<script src="./scripts/api.js" defer></script>';
+    . '<script src="./scripts/api.js" defer></script>'
+    . '<link rel="stylesheet" href="./styles/site-polish.css?v=20261120" />';
 $page = str_replace('</footer>', '<p class="site-copyright">&copy; ' . date('Y') . ' Big Zix. All rights reserved.</p></footer>', $page);
 echo str_replace('</head>', $metadata . '</head>', $page);

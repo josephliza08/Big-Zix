@@ -88,6 +88,7 @@ input {
 }
 input[type="submit"] {
   margin-top: 16px;
+  border-radius: 999px;
   border-color: #b23a3a;
   background: #b23a3a;
   color: white;

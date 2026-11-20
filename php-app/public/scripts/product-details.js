@@ -133,7 +133,6 @@
   dialog.addEventListener("close", () => opener?.focus());
   filter.removeAttribute("aria-haspopup");
   filter.setAttribute("aria-pressed", "false");
-  filter.textContent = "My favorites";
   filter.addEventListener("click", () => {
     if (!BigZixAPI.user) return requestLogin("favorites");
     filter.setAttribute(
